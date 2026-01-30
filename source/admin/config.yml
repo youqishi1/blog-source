@@ -1,5 +1,5 @@
 # ==================================================
-# Decap CMS (Netlify CMS) 后台配置
+# Decap CMS (Netlify CMS) 后台配置 - 增强版
 # ==================================================
 
 backend:
@@ -16,7 +16,7 @@ locale: 'zh_Hans'
 media_folder: "source/img"
 public_folder: "/img"
 
-# 发布模式：simple 保存即发布，editorial_workflow 需审核
+# 发布模式
 publish_mode: simple
 
 # 编辑器配置
@@ -58,6 +58,12 @@ collections:
       - label: "分类"
         field: categories
     summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
+    # ============================================
+    # 编辑器组件/模板
+    # ============================================
+    editor:
+      preview: true
+      frame: false
     fields:
       - label: "标题"
         name: "title"
@@ -139,10 +145,633 @@ collections:
         default: true
         required: false
 
+      # ============================================
+      # 📌 快捷模板插入区域
+      # ============================================
+      - label: "━━━━━ 📌 快捷模板 ━━━━━"
+        name: "templates_divider"
+        widget: "object"
+        collapsed: true
+        required: false
+        hint: "展开可复制常用模板代码"
+        fields:
+          # -------- 图片相关 --------
+          - label: "🖼️ 图片模板"
+            name: "image_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "单张图片"
+                name: "single_image"
+                widget: "text"
+                required: false
+                default: |
+                  {% img [class] /img/xxx.jpg [width] [height] '"alt文字" "标题"' %}
+                hint: "基础图片插入"
+
+              - label: "图片画廊(fancybox)"
+                name: "gallery"
+                widget: "text"
+                required: false
+                default: |
+                  {% gallery %}
+                  ![图片描述](/img/1.jpg)
+                  ![图片描述](/img/2.jpg)
+                  ![图片描述](/img/3.jpg)
+                  {% endgallery %}
+                hint: "多图展示，点击可放大浏览"
+
+              - label: "并排图片组"
+                name: "group_image"
+                widget: "text"
+                required: false
+                default: |
+                  {% gallery true,2 %}
+                  ![](/img/1.jpg)
+                  ![](/img/2.jpg)
+                  {% endgallery %}
+                hint: "参数：true=并排, 2=每行数量"
+
+              - label: "图片描述卡片"
+                name: "image_card"
+                widget: "text"
+                required: false
+                default: |
+                  {% image /img/xxx.jpg, alt=图片描述, bg=#f2f2f2 %}
+                hint: "带背景色的图片卡片"
+
+          # -------- 视频相关 --------
+          - label: "🎬 视频模板"
+            name: "video_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "哔哩哔哩视频"
+                name: "bilibili"
+                widget: "text"
+                required: false
+                default: |
+                  {% bilibili BV号 %}
+                  
+                  <!-- 示例 -->
+                  {% bilibili BV1GJ411x7h7 %}
+                  
+                  <!-- 带分P -->
+                  {% bilibili BV1GJ411x7h7 2 %}
+                hint: "B站视频，填入BV号即可"
+
+              - label: "哔哩哔哩(iframe方式)"
+                name: "bilibili_iframe"
+                widget: "text"
+                required: false
+                default: |
+                  <div style="position: relative; padding: 30% 45%;">
+                    <iframe style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" 
+                      src="//player.bilibili.com/player.html?bvid=BV号&page=1&autoplay=0" 
+                      scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+                    </iframe>
+                  </div>
+                hint: "B站视频iframe嵌入方式"
+
+              - label: "YouTube视频"
+                name: "youtube"
+                widget: "text"
+                required: false
+                default: |
+                  {% youtube 视频ID %}
+                  
+                  <!-- 示例: https://www.youtube.com/watch?v=XXXXXX -->
+                  {% youtube XXXXXX %}
+                hint: "YouTube视频ID"
+
+              - label: "本地/外链视频"
+                name: "video"
+                widget: "text"
+                required: false
+                default: |
+                  {% video /video/xxx.mp4 %}
+                  
+                  <!-- 多个视频 -->
+                  {% videos %}
+                  {% video /video/1.mp4 %}
+                  {% video /video/2.mp4 %}
+                  {% endvideos %}
+                hint: "本地或外链MP4视频"
+
+              - label: "Dplayer播放器"
+                name: "dplayer"
+                widget: "text"
+                required: false
+                default: |
+                  {% dplayer url="/video/xxx.mp4" pic="/img/cover.jpg" autoplay=false %}
+                hint: "功能更丰富的视频播放器"
+
+              - label: "西瓜视频"
+                name: "xigua"
+                widget: "text"
+                required: false
+                default: |
+                  <iframe width="100%" height="500" 
+                    src="https://www.ixigua.com/iframe/视频ID?autoplay=0" 
+                    scrolling="no" border="0" frameborder="no" 
+                    framespacing="0" allowfullscreen="true">
+                  </iframe>
+                hint: "西瓜视频嵌入"
+
+          # -------- 音频相关 --------
+          - label: "🎵 音频模板"
+            name: "audio_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "网易云音乐(单曲)"
+                name: "netease_song"
+                widget: "text"
+                required: false
+                default: |
+                  {% meting "歌曲ID" "netease" "song" %}
+                  
+                  <!-- 示例 -->
+                  {% meting "1901371647" "netease" "song" %}
+                hint: "网易云单曲ID"
+
+              - label: "网易云音乐(歌单)"
+                name: "netease_playlist"
+                widget: "text"
+                required: false
+                default: |
+                  {% meting "歌单ID" "netease" "playlist" "autoplay:false" "theme:#FF4081" %}
+                hint: "网易云歌单ID"
+
+              - label: "QQ音乐"
+                name: "qq_music"
+                widget: "text"
+                required: false
+                default: |
+                  {% meting "歌曲ID" "tencent" "song" %}
+                hint: "QQ音乐歌曲ID"
+
+              - label: "本地音频"
+                name: "audio"
+                widget: "text"
+                required: false
+                default: |
+                  {% audio /audio/xxx.mp3 %}
+                hint: "本地MP3文件"
+
+          # -------- 提示框/标签 --------
+          - label: "📢 提示框模板"
+            name: "note_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "默认提示"
+                name: "note_default"
+                widget: "text"
+                required: false
+                default: |
+                  {% note default %}
+                  默认提示框内容
+                  {% endnote %}
+
+              - label: "主要提示(蓝色)"
+                name: "note_primary"
+                widget: "text"
+                required: false
+                default: |
+                  {% note primary %}
+                  主要信息提示
+                  {% endnote %}
+
+              - label: "成功提示(绿色)"
+                name: "note_success"
+                widget: "text"
+                required: false
+                default: |
+                  {% note success %}
+                  操作成功提示
+                  {% endnote %}
+
+              - label: "信息提示(青色)"
+                name: "note_info"
+                widget: "text"
+                required: false
+                default: |
+                  {% note info %}
+                  普通信息提示
+                  {% endnote %}
+
+              - label: "警告提示(黄色)"
+                name: "note_warning"
+                widget: "text"
+                required: false
+                default: |
+                  {% note warning %}
+                  警告信息提示
+                  {% endnote %}
+
+              - label: "危险提示(红色)"
+                name: "note_danger"
+                widget: "text"
+                required: false
+                default: |
+                  {% note danger %}
+                  危险警告提示
+                  {% endnote %}
+
+              - label: "带图标提示"
+                name: "note_icon"
+                widget: "text"
+                required: false
+                default: |
+                  {% note info fa-solid fa-lightbulb %}
+                  带图标的提示框
+                  {% endnote %}
+                hint: "可使用 Font Awesome 图标"
+
+          # -------- 折叠/隐藏 --------
+          - label: "📦 折叠/隐藏模板"
+            name: "collapse_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "折叠内容"
+                name: "hideToggle"
+                widget: "text"
+                required: false
+                default: |
+                  {% hideToggle 点击展开查看 %}
+                  这里是被折叠的内容
+                  可以放任何内容
+                  {% endhideToggle %}
+                hint: "点击标题展开/收起"
+
+              - label: "折叠(默认展开)"
+                name: "hideToggle_open"
+                widget: "text"
+                required: false
+                default: |
+                  {% hideToggle 标题,open %}
+                  默认展开的内容
+                  {% endhideToggle %}
+
+              - label: "折叠代码块"
+                name: "hideToggle_code"
+                widget: "text"
+                required: false
+                default: |
+                  {% hideToggle 查看代码 %}
+                  ```javascript
+                  console.log('Hello World');
+                  ```
+                  {% endhideToggle %}
+
+              - label: "密码可见"
+                name: "password_visible"
+                widget: "text"
+                required: false
+                default: |
+                  {% hideInline 隐藏内容,密码,提示 %}
+                hint: "输入密码后显示内容"
+
+          # -------- 标签/卡片 --------
+          - label: "🏷️ 标签卡片模板"
+            name: "tabs_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "标签页"
+                name: "tabs"
+                widget: "text"
+                required: false
+                default: |
+                  {% tabs 标签名 %}
+                  <!-- tab 选项卡1 -->
+                  第一个选项卡的内容
+                  <!-- endtab -->
+                  <!-- tab 选项卡2 -->
+                  第二个选项卡的内容
+                  <!-- endtab -->
+                  <!-- tab 选项卡3 -->
+                  第三个选项卡的内容
+                  <!-- endtab -->
+                  {% endtabs %}
+                hint: "多标签切换"
+
+              - label: "带图标标签页"
+                name: "tabs_icon"
+                widget: "text"
+                required: false
+                default: |
+                  {% tabs 图标标签 %}
+                  <!-- tab @February fa-solid fa-home -->
+                  首页内容
+                  <!-- endtab -->
+                  <!-- tab @February fa-solid fa-user -->
+                  用户内容
+                  <!-- endtab -->
+                  {% endtabs %}
+                hint: "标签带Font Awesome图标"
+
+              - label: "卡片(单个)"
+                name: "card"
+                widget: "text"
+                required: false
+                default: |
+                  {% card 卡片标题,/img/cover.jpg,/链接地址 %}
+                  卡片内容描述
+                  {% endcard %}
+
+              - label: "卡片组"
+                name: "card_group"
+                widget: "text"
+                required: false
+                default: |
+                  {% cardgroup %}
+                  {% card 标题1,/img/1.jpg,/ %}
+                  描述1
+                  {% endcard %}
+                  {% card 标题2,/img/2.jpg,/ %}
+                  描述2
+                  {% endcard %}
+                  {% endcardgroup %}
+
+          # -------- 按钮/链接 --------
+          - label: "🔘 按钮链接模板"
+            name: "button_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "基础按钮"
+                name: "btn_basic"
+                widget: "text"
+                required: false
+                default: |
+                  {% btn 'https://链接地址',按钮文字,fa-solid fa-link %}
+                hint: "带图标的按钮"
+
+              - label: "外链按钮"
+                name: "btn_outline"
+                widget: "text"
+                required: false
+                default: |
+                  {% btn 'https://链接地址',按钮文字,fa-solid fa-link,outline %}
+                hint: "轮廓样式按钮"
+
+              - label: "按钮组"
+                name: "btn_group"
+                widget: "text"
+                required: false
+                default: |
+                  {% btns rounded center %}
+                  {% cell GitHub,https://github.com,fa-brands fa-github %}
+                  {% cell Gitee,https://gitee.com,fa-solid fa-code %}
+                  {% endbtns %}
+                hint: "多个按钮排列"
+
+              - label: "下载按钮"
+                name: "btn_download"
+                widget: "text"
+                required: false
+                default: |
+                  {% btn 'https://下载链接',立即下载,fa-solid fa-download,block blue larger %}
+                hint: "大号下载按钮"
+
+              - label: "外链卡片"
+                name: "link_card"
+                widget: "text"
+                required: false
+                default: |
+                  {% link 网站名称,网站描述,https://链接地址,/img/favicon.ico %}
+                hint: "精美的链接卡片"
+
+          # -------- 时间线 --------
+          - label: "📅 时间线模板"
+            name: "timeline_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "基础时间线"
+                name: "timeline_basic"
+                widget: "text"
+                required: false
+                default: |
+                  {% timeline 时间线标题 %}
+                  <!-- timeline 2024-01-01 -->
+                  第一个时间点的内容
+                  <!-- endtimeline -->
+                  <!-- timeline 2024-01-15 -->
+                  第二个时间点的内容
+                  <!-- endtimeline -->
+                  {% endtimeline %}
+
+              - label: "彩色时间线"
+                name: "timeline_color"
+                widget: "text"
+                required: false
+                default: |
+                  {% timeline 项目进度,blue %}
+                  <!-- timeline 2024-01 -->
+                  项目启动
+                  <!-- endtimeline -->
+                  <!-- timeline 2024-06 -->
+                  功能开发完成
+                  <!-- endtimeline -->
+                  {% endtimeline %}
+                hint: "可选颜色: blue, green, yellow, red"
+
+          # -------- 特殊效果 --------
+          - label: "✨ 特殊效果模板"
+            name: "effect_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "文字高亮"
+                name: "highlight"
+                widget: "text"
+                required: false
+                default: |
+                  这是{% label 高亮文字 blue %}示例
+                  
+                  可选颜色：{% label default %}{% label primary blue %}{% label success green %}{% label warning orange %}{% label danger red %}
+
+              - label: "上标/下标"
+                name: "sub_sup"
+                widget: "text"
+                required: false
+                default: |
+                  H{% sub 2 %}O 水的化学式
+                  E=mc{% sup 2 %} 质能方程
+
+              - label: "文字旋转"
+                name: "text_rotate"
+                widget: "text"
+                required: false
+                default: |
+                  {% span rotate:-5deg, 文字旋转效果 %}
+                  {% span color:red, 红色文字 %}
+                  {% span font-size:1.5em, 大号文字 %}
+
+              - label: "进度条"
+                name: "progress"
+                widget: "text"
+                required: false
+                default: |
+                  {% progress 60 green 学习进度 %}
+                  {% progress 80 blue 项目进度 %}
+                  {% progress 100 red 完成度 %}
+                hint: "百分比进度条"
+
+              - label: "分隔线"
+                name: "hr"
+                widget: "text"
+                required: false
+                default: |
+                  {% hr 分隔线标题 %}
+
+              - label: "诗词格式"
+                name: "poem"
+                widget: "text"
+                required: false
+                default: |
+                  {% poem 静夜思,李白 %}
+                  床前明月光，疑是地上霜。
+                  举头望明月，低头思故乡。
+                  {% endpoem %}
+
+          # -------- 代码相关 --------
+          - label: "💻 代码相关模板"
+            name: "code_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "行内代码"
+                name: "inline_code"
+                widget: "text"
+                required: false
+                default: |
+                  这是 `行内代码` 示例
+
+              - label: "代码块(基础)"
+                name: "codeblock_basic"
+                widget: "text"
+                required: false
+                default: |
+                  ```javascript
+                  console.log('Hello World');
+                  ```
+
+              - label: "代码块(带文件名)"
+                name: "codeblock_title"
+                widget: "text"
+                required: false
+                default: |
+                  ```javascript title="hello.js"
+                  function hello() {
+                    console.log('Hello World');
+                  }
+                  ```
+
+              - label: "代码块(高亮行)"
+                name: "codeblock_highlight"
+                widget: "text"
+                required: false
+                default: |
+                  ```javascript {2-3}
+                  const a = 1;
+                  const b = 2;  // 高亮
+                  const c = 3;  // 高亮
+                  ```
+                hint: "用 {行号} 高亮指定行"
+
+              - label: "Diff代码对比"
+                name: "codeblock_diff"
+                widget: "text"
+                required: false
+                default: |
+                  ```diff
+                  - 删除的行
+                  + 新增的行
+                    不变的行
+                  ```
+
+              - label: "代码组(多语言)"
+                name: "code_group"
+                widget: "text"
+                required: false
+                default: |
+                  {% tabs 代码示例 %}
+                  <!-- tab JavaScript -->
+                  ```javascript
+                  console.log('JS');
+                  ```
+                  <!-- endtab -->
+                  <!-- tab Python -->
+                  ```python
+                  print('Python')
+                  ```
+                  <!-- endtab -->
+                  {% endtabs %}
+
+          # -------- 引用相关 --------
+          - label: "💬 引用相关模板"
+            name: "quote_templates"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - label: "基础引用"
+                name: "blockquote"
+                widget: "text"
+                required: false
+                default: |
+                  > 这是一段引用文字
+                  > 可以多行
+
+              - label: "带作者引用"
+                name: "quote_author"
+                widget: "text"
+                required: false
+                default: |
+                  {% blockquote 作者名, 来源 %}
+                  引用的内容
+                  {% endblockquote %}
+
+              - label: "带链接引用"
+                name: "quote_link"
+                widget: "text"
+                required: false
+                default: |
+                  {% blockquote @作者 https://链接地址 %}
+                  引用的内容
+                  {% endblockquote %}
+
+              - label: "便签引用"
+                name: "note_quote"
+                widget: "text"
+                required: false
+                default: |
+                  {% note quote %}
+                  便签样式的引用
+                  {% endnote %}
+
+      # ============================================
+      # 正文内容
+      # ============================================
       - label: "正文内容"
         name: "body"
         widget: "markdown"
-        hint: "支持Markdown语法"
+        hint: "支持Markdown语法，可从上方模板复制代码使用"
 
   # ────────────────────────────────────────────────
   # 💬 闲言碎语（说说）
@@ -185,6 +814,15 @@ collections:
           - { label: "🤔 思考", value: "thinking" }
           - { label: "😴 困了", value: "sleepy" }
           - { label: "🎉 庆祝", value: "celebrate" }
+          - { label: "💪 加油", value: "fighting" }
+          - { label: "🌧️ 郁闷", value: "gloomy" }
+
+      - label: "配图"
+        name: "photos"
+        widget: "list"
+        required: false
+        field: { label: "图片", name: "photo", widget: "image" }
+        hint: "可添加多张配图"
 
       - label: "说说内容"
         name: "body"
