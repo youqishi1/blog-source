@@ -63,16 +63,19 @@ collections:
           - {label: "站点标题", name: "title", widget: "string"}
           - {label: "站点网址", name: "url", widget: "string"}
 
-  # 【友情链接】
+# 【友情链接】
   - name: "friends"
     label: "🤝 友情链接"
-    file: "source/_data/link.yml"
-    fields:
-      - label: "链接列表"
-        name: "link_list"
-        widget: "list"
+    files: # 注意这里必须是 files (复数)
+      - label: "全部友链"
+        name: "all_friends"
+        file: "source/_data/link.yml" # 这里才是具体文件路径
         fields:
-          - {label: "网站名称", name: "name", widget: "string"}
-          - {label: "网站链接", name: "link", widget: "string"}
-          - {label: "网站头像", name: "avatar", widget: "image"}
-          - {label: "网站描述", name: "descr", widget: "string"}
+          - label: "链接列表"
+            name: "link_list"
+            widget: "list"
+            fields:
+              - {label: "网站名称", name: "name", widget: "string"}
+              - {label: "网站链接", name: "link", widget: "string"}
+              - {label: "网站头像", name: "avatar", widget: "image"}
+              - {label: "网站描述", name: "descr", widget: "string"}
