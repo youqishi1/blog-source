@@ -1,20 +1,35 @@
 backend:
   name: github
-  repo: youqishi1/blog-source # 记得改成你现在这个源码仓库的名字
+  repo: youqishi1/blog-source # 确认这是你的仓库名
   branch: main
-  base_url: https://blog-source-1pq.pages.dev # 你之前在CF部署的那个Worker地址
+  base_url: https://blog-source-1pq.pages.dev.workers.dev
   auth_endpoint: auth
 
-publish_mode: editorial_workflow
+publish_mode: editorial_workflow # 开启审核模式：修改后先存为草稿，确认后再发布
+
 media_folder: "source/img" 
 public_folder: "/img"
 
 collections:
   - name: "posts"
-    label: "文章"
-    folder: "source/_posts" 
-    create: true
+    label: "文章管理"
+    folder: "source/_posts"
+    create: true # 允许新建文章
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "标题", name: "title", widget: "string"}
-      - {label: "日期", name: "date", widget: "datetime"}
+      - {label: "发布日期", name: "date", widget: "datetime"}
+      - {label: "文章封面", name: "cover", widget: "image", required: false}
+      - {label: "分类", name: "categories", widget: "list"}
+      - {label: "标签", name: "tags", widget: "list"}
       - {label: "正文", name: "body", widget: "markdown"}
+
+  - name: "pages"
+    label: "独立页面"
+    files:
+      - label: "关于我"
+        name: "about"
+        file: "source/about/index.md"
+        fields:
+          - {label: "标题", name: "title", widget: "string"}
+          - {label: "正文", name: "body", widget: "markdown"}
