@@ -1,0 +1,50 @@
+- class_name: 我丢你老母！！
+  creativity_list:
+    - name: Java
+      color: "#fff"
+      icon: https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB1qOucu.img?w=640&h=301&m=6&x=315&y=81&s=90&d=90
+    - name: Docker
+      color: "#fff"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/75046ac26908048b42f47606ba4e89e4.png
+    - name: Photoshop
+      color: "#4082c3"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/160607d4a0ef677061fa11acd5ed33bc.png
+    - name: Node
+      color: "#333"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/4cfbe4f3bd5575fb788d840a94bec0ac.png
+    - name: Webpack
+      color: "#2e3a41"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/1e62d114c250cfeb096421ff1c04105e.png
+    - name: Pinia
+      color: "#fff"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/5d78a23dcca757c7e0b96368eeb0b771.png
+    - name: Python
+      color: "#fff"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/64b80a647ce58607e033d1ed595e1644.png
+    - name: Vite
+      color: "#937df7"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/e2dec1393dcf6d4b0d336a396095fa9a.png
+    - name: Flutter
+      color: "#4499e4"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/350da5799607f873c2cb9fbcf252f7d4.png
+    - name: Vue
+      color: "#b8f0ae"
+      icon: https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sycx.png
+    - name: React
+      color: "#222"
+      icon: https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hksymd.png
+    - name: CSS3
+      color: "#2c51db"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/3a13f100eec38e95035a9af6aa1e6ff8.png
+    - name: JS
+      color: "#f7cb4f"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/c6f84801e39c7449fa85bf15f059770a.png
+    - name: HTML
+      color: "#e9572b"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/d1a8cb1643df45a1c580be92dde889b4.png
+    - name: Git
+      color: "#df5b40"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/e7fca8ef606694d0243b348bf2e58628.png
+    - name: Apifox
+      color: "#e65164"
+      icon: https://lol-material-1255460064.cos.ap-shanghai.myqcloud.com/c85f4bdb33ff9291953b607c8066aa62.png
