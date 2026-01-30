@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: youqishi1/blog-source # 记得改成你现在这个源码仓库的名字
+  branch: main
+  base_url: https://anzhiyu-auth.1797507336.workers.dev # 你之前在CF部署的那个Worker地址
+  auth_endpoint: auth
+
+publish_mode: editorial_workflow
+media_folder: "source/img" 
+public_folder: "/img"
+
+collections:
+  - name: "posts"
+    label: "文章"
+    folder: "source/_posts" 
+    create: true
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "日期", name: "date", widget: "datetime"}
+      - {label: "正文", name: "body", widget: "markdown"}
