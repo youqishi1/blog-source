@@ -1,3 +1,7 @@
+# ==================================================
+# Decap CMS (Netlify CMS) 后台配置
+# ==================================================
+
 backend:
   name: github
   repo: youqishi1/blog-source
@@ -5,156 +9,327 @@ backend:
   base_url: https://anzhiyu-auth.1797507336.workers.dev
   auth_endpoint: auth
 
+# 本地化设置
+locale: 'zh_Hans'
+
 # 媒体库配置
 media_folder: "source/img"
 public_folder: "/img"
 
-# 发布模式
+# 发布模式：simple 保存即发布，editorial_workflow 需审核
 publish_mode: simple
 
-# 本地化设置
-locale: "zh_Hans"
+# 编辑器配置
+editor:
+  preview: true
 
-# 后台界面配置
-site_url: https://your-blog-url.com
-display_url: https://your-blog-url.com
-logo_url: https://your-blog-url.com/img/logo.png
-
-# slug 配置
+# Slug 配置
 slug:
   encoding: "unicode"
   clean_accents: true
   sanitize_replacement: "-"
 
+# ==================================================
+# 内容集合
+# ==================================================
 collections:
-  # 【文章管理】
+
+  # ────────────────────────────────────────────────
+  # 📝 文章管理
+  # ────────────────────────────────────────────────
   - name: "posts"
     label: "📝 文章管理"
     label_singular: "文章"
     folder: "source/_posts"
     create: true
-    delete: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{title}} - {{year}}/{{month}}/{{day}}"
-    sortable_fields: ["date", "title", "sticky"]
+    sortable_fields: ['date', 'title', 'sticky']
     view_filters:
       - label: "置顶文章"
         field: sticky
-        pattern: "^[1-9]"
-      - label: "有封面"
-        field: cover
-        pattern: "."
+        pattern: '^[1-9]'
+      - label: "今年发布"
+        field: date
+        pattern: '2024'
     view_groups:
       - label: "年份"
         field: date
         pattern: '\d{4}'
+      - label: "分类"
+        field: categories
+    summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
     fields:
       - label: "标题"
         name: "title"
         widget: "string"
-        hint: "文章的标题"
+        hint: "文章的主标题"
+
       - label: "发布日期"
         name: "date"
         widget: "datetime"
-        format: "YYYY-MM-DD HH:mm:ss"
         date_format: "YYYY-MM-DD"
         time_format: "HH:mm:ss"
+        format: "YYYY-MM-DD HH:mm:ss"
+
+      - label: "更新日期"
+        name: "updated"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: "HH:mm:ss"
+        format: "YYYY-MM-DD HH:mm:ss"
+        required: false
+
       - label: "文章布局"
         name: "layout"
         widget: "hidden"
         default: "post"
+
       - label: "置顶序号"
         name: "sticky"
         widget: "number"
         default: 0
         required: false
         hint: "数字越大越靠前，0表示不置顶"
+
       - label: "文章封面"
         name: "cover"
         widget: "image"
         required: false
-        hint: "文章列表显示的缩略图"
+        hint: "显示在文章列表的缩略图"
+
       - label: "顶部背景图"
         name: "top_img"
         widget: "image"
         required: false
-        hint: "文章页面顶部的大图"
+        hint: "文章详情页顶部大图"
+
       - label: "文章描述"
         name: "description"
         widget: "text"
         required: false
         hint: "用于SEO和文章摘要"
+
       - label: "分类"
         name: "categories"
         widget: "list"
-        hint: "可添加多个分类"
+        allow_add: true
+        hint: "支持多级分类，用回车分隔"
+
       - label: "标签"
         name: "tags"
         widget: "list"
-        hint: "可添加多个标签"
+        allow_add: true
+        hint: "添加文章标签，用回车分隔"
+
+      - label: "文章密码"
+        name: "password"
+        widget: "string"
+        required: false
+        hint: "设置后需要密码才能查看"
+
+      - label: "隐藏文章"
+        name: "hide"
+        widget: "boolean"
+        default: false
+        required: false
+
+      - label: "关闭评论"
+        name: "comments"
+        widget: "boolean"
+        default: true
+        required: false
+
       - label: "正文内容"
         name: "body"
         widget: "markdown"
-        hint: "支持 Markdown 语法"
+        hint: "支持Markdown语法"
 
-  # 【说说管理】
+  # ────────────────────────────────────────────────
+  # 💬 闲言碎语（说说）
+  # ────────────────────────────────────────────────
   - name: "essays"
     label: "💬 闲言碎语"
     label_singular: "说说"
     folder: "source/_posts/essays"
     create: true
-    delete: true
     extension: "md"
     format: "yaml-frontmatter"
     slug: "{{year}}{{month}}{{day}}-{{slug}}"
-    summary: "{{title}} - {{year}}/{{month}}/{{day}}"
+    summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
     fields:
       - label: "标题"
         name: "title"
         widget: "string"
-        hint: "用于后台识别，不会显示在前端"
+        hint: "用于后台识别，不会显示在前台"
+
       - label: "发布日期"
         name: "date"
         widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: "HH:mm:ss"
         format: "YYYY-MM-DD HH:mm:ss"
-      - label: "说说布局"
+
+      - label: "布局"
         name: "layout"
         widget: "hidden"
         default: "essay"
+
+      - label: "心情图标"
+        name: "mood"
+        widget: "select"
+        required: false
+        options:
+          - { label: "😊 开心", value: "happy" }
+          - { label: "😢 难过", value: "sad" }
+          - { label: "😡 生气", value: "angry" }
+          - { label: "🤔 思考", value: "thinking" }
+          - { label: "😴 困了", value: "sleepy" }
+          - { label: "🎉 庆祝", value: "celebrate" }
+
       - label: "说说内容"
         name: "body"
         widget: "markdown"
 
-  # 【站点配置】
+  # ────────────────────────────────────────────────
+  # 📷 相册管理
+  # ────────────────────────────────────────────────
+  - name: "gallery"
+    label: "📷 相册管理"
+    label_singular: "相册"
+    folder: "source/_posts/gallery"
+    create: true
+    extension: "md"
+    format: "yaml-frontmatter"
+    slug: "{{slug}}"
+    fields:
+      - label: "相册名称"
+        name: "title"
+        widget: "string"
+
+      - label: "创建日期"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD HH:mm:ss"
+
+      - label: "布局"
+        name: "layout"
+        widget: "hidden"
+        default: "gallery"
+
+      - label: "相册封面"
+        name: "cover"
+        widget: "image"
+
+      - label: "相册描述"
+        name: "description"
+        widget: "text"
+        required: false
+
+      - label: "照片列表"
+        name: "photos"
+        widget: "list"
+        summary: "{{fields.caption}}"
+        fields:
+          - label: "图片"
+            name: "url"
+            widget: "image"
+          - label: "图片说明"
+            name: "caption"
+            widget: "string"
+            required: false
+
+      - label: "正文"
+        name: "body"
+        widget: "markdown"
+        required: false
+
+  # ────────────────────────────────────────────────
+  # 📄 独立页面
+  # ────────────────────────────────────────────────
+  - name: "pages"
+    label: "📄 独立页面"
+    label_singular: "页面"
+    files:
+      - label: "关于我"
+        name: "about"
+        file: "source/about/index.md"
+        fields:
+          - label: "标题"
+            name: "title"
+            widget: "string"
+            default: "关于我"
+          - label: "日期"
+            name: "date"
+            widget: "datetime"
+          - label: "布局"
+            name: "layout"
+            widget: "hidden"
+            default: "about"
+          - label: "内容"
+            name: "body"
+            widget: "markdown"
+
+      - label: "留言板"
+        name: "message"
+        file: "source/message/index.md"
+        fields:
+          - label: "标题"
+            name: "title"
+            widget: "string"
+            default: "留言板"
+          - label: "日期"
+            name: "date"
+            widget: "datetime"
+          - label: "顶部图片"
+            name: "top_img"
+            widget: "image"
+            required: false
+          - label: "内容"
+            name: "body"
+            widget: "markdown"
+
+  # ────────────────────────────────────────────────
+  # ⚙️ 站点配置
+  # ────────────────────────────────────────────────
   - name: "configs"
     label: "⚙️ 站点配置"
     files:
-      - label: "安知鱼主题配置"
+      - label: "🎨 安知鱼主题配置"
         name: "theme_config"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "网站副标题"
-            name: "subtitle"
-            widget: "string"
-          - label: "站长头像"
-            name: "avatar"
-            widget: "image"
-          - label: "博主名称"
-            name: "author"
-            widget: "string"
-          - label: "网站描述"
-            name: "description"
-            widget: "text"
+          - label: "基础信息"
+            name: "site_info"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "网站副标题"
+                name: "subtitle"
+                widget: "string"
+              - label: "站长头像"
+                name: "avatar"
+                widget: "image"
+              - label: "博主名称"
+                name: "author"
+                widget: "string"
+              - label: "网站描述"
+                name: "description"
+                widget: "text"
+
           - label: "社交链接"
             name: "social"
             widget: "object"
+            collapsed: true
             required: false
             fields:
-              - {label: "GitHub", name: "github", widget: "string", required: false}
-              - {label: "邮箱", name: "email", widget: "string", required: false}
-              - {label: "微信", name: "wechat", widget: "image", required: false}
+              - { label: "GitHub", name: "github", widget: "string", required: false }
+              - { label: "Email", name: "email", widget: "string", required: false }
+              - { label: "微信", name: "wechat", widget: "image", required: false }
+              - { label: "QQ", name: "qq", widget: "string", required: false }
+              - { label: "微博", name: "weibo", widget: "string", required: false }
+              - { label: "B站", name: "bilibili", widget: "string", required: false }
 
-      - label: "博客核心配置"
+      - label: "🔧 博客核心配置"
         name: "site_config"
         file: "_config.yml"
         fields:
@@ -164,14 +339,36 @@ collections:
           - label: "站点网址"
             name: "url"
             widget: "string"
+            hint: "例如: https://yourdomain.com"
+          - label: "站点描述"
+            name: "description"
+            widget: "text"
+            required: false
+          - label: "站点关键词"
+            name: "keywords"
+            widget: "list"
+            required: false
+          - label: "作者"
+            name: "author"
+            widget: "string"
+            required: false
           - label: "语言"
             name: "language"
             widget: "select"
-            options: ["zh-CN", "zh-TW", "en"]
+            options:
+              - { label: "简体中文", value: "zh-CN" }
+              - { label: "繁體中文", value: "zh-TW" }
+              - { label: "English", value: "en" }
             default: "zh-CN"
+          - label: "时区"
+            name: "timezone"
+            widget: "string"
+            default: "Asia/Shanghai"
 
-  # 【友情链接】
-  - name: "links"
+  # ────────────────────────────────────────────────
+  # 🤝 友情链接
+  # ────────────────────────────────────────────────
+  - name: "friends"
     label: "🤝 友情链接"
     files:
       - label: "友链列表"
@@ -181,33 +378,43 @@ collections:
           - label: "友链分组"
             name: "link_list"
             widget: "list"
+            summary: "{{fields.class_name}} ({{fields.link_list.length}}个链接)"
             fields:
               - label: "分组名称"
                 name: "class_name"
                 widget: "string"
+                hint: "例如：技术大佬、生活博主"
+              
               - label: "分组描述"
                 name: "class_desc"
                 widget: "string"
                 required: false
-              - label: "链接列表"
+              
+              - label: "友链列表"
                 name: "link_list"
                 widget: "list"
+                summary: "{{fields.name}}"
                 fields:
-                  - {label: "网站名称", name: "name", widget: "string"}
-                  - {label: "网站链接", name: "link", widget: "string"}
-                  - {label: "网站头像", name: "avatar", widget: "image"}
-                  - {label: "网站描述", name: "descr", widget: "string"}
-                  - {label: "网站颜色", name: "siteshot", widget: "string", required: false}
-
-  # 【页面管理】
-  - name: "pages"
-    label: "📄 页面管理"
-    files:
-      - label: "关于页面"
-        name: "about"
-        file: "source/about/index.md"
-        fields:
-          - {label: "标题", name: "title", widget: "string"}
-          - {label: "日期", name: "date", widget: "datetime"}
-          - {label: "布局", name: "layout", widget: "hidden", default: "about"}
-          - {label: "内容", name: "body", widget: "markdown"}
+                  - label: "网站名称"
+                    name: "name"
+                    widget: "string"
+                  
+                  - label: "网站链接"
+                    name: "link"
+                    widget: "string"
+                    hint: "请填写完整URL，包含 https://"
+                  
+                  - label: "网站头像"
+                    name: "avatar"
+                    widget: "image"
+                  
+                  - label: "网站描述"
+                    name: "descr"
+                    widget: "string"
+                    hint: "简短描述，建议20字以内"
+                  
+                  - label: "网站颜色"
+                    name: "siteshot"
+                    widget: "color"
+                    required: false
+                    hint: "友链卡片的主题色"
