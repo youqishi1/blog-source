@@ -2,7 +2,7 @@ backend:
   name: github
   repo: youqishi1/blog-source # 确认这是你的仓库名
   branch: main
-  base_url: https://blog-source-1pq.pages.dev.workers.dev
+  base_url: https://anzhiyu-auth.1797507336.workers.dev
   auth_endpoint: auth
 
 publish_mode: editorial_workflow # 开启审核模式：修改后先存为草稿，确认后再发布
