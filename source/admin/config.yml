@@ -2,7 +2,7 @@ backend:
   name: github
   repo: youqishi1/blog-source # 记得改成你现在这个源码仓库的名字
   branch: main
-  base_url: https://anzhiyu-auth.1797507336.workers.dev # 你之前在CF部署的那个Worker地址
+  base_url: https://blog-source-1pq.pages.dev # 你之前在CF部署的那个Worker地址
   auth_endpoint: auth
 
 publish_mode: editorial_workflow
