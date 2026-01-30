@@ -5,11 +5,12 @@ backend:
   base_url: https://anzhiyu-auth.1797507336.workers.dev
   auth_endpoint: auth
 
-# 媒体库配置：后台上传的图片会存放在 source/img
+# 界面语言设置
+locale: zh_Hans # 这一行会将后台按钮（如 Save, Publish, Media 等）切换为中文
+
 media_folder: "source/img"
 public_folder: "/img"
 
-# 开启审核模式（可选）：设为 true 则发布后需在 Workflow 确认才上线；设为 false 则保存即发布
 publish_mode: simple 
 
 collections:
@@ -30,7 +31,7 @@ collections:
       - {label: "标签", name: "tags", widget: "list"}
       - {label: "正文内容", name: "body", widget: "markdown"}
 
-  # 【说说管理】适合发布简短状态
+  # 【说说管理】
   - name: "essays"
     label: "💬 闲言碎语(说说)"
     folder: "source/_posts/essays"
@@ -43,7 +44,7 @@ collections:
       - {label: "说说布局", name: "layout", widget: "hidden", default: "essay"}
       - {label: "说说内容", name: "body", widget: "markdown"}
 
-  # 【配置文件管理】直接在后台改主题设置
+  # 【配置文件管理】
   - name: "configs"
     label: "⚙️ 站点配置"
     files:
@@ -63,13 +64,13 @@ collections:
           - {label: "站点标题", name: "title", widget: "string"}
           - {label: "站点网址", name: "url", widget: "string"}
 
-# 【友情链接】
+  # 【友情链接】已修复 files 报错
   - name: "friends"
     label: "🤝 友情链接"
-    files: # 注意这里必须是 files (复数)
+    files: 
       - label: "全部友链"
         name: "all_friends"
-        file: "source/_data/link.yml" # 这里才是具体文件路径
+        file: "source/_data/link.yml"
         fields:
           - label: "链接列表"
             name: "link_list"
