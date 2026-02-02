@@ -39,7 +39,7 @@ external_link:
   enable: true
   field: site
   exclude: ""
-url: https://1.8818866.xyz/
+url: https://1.8818866.xyz
 archive_dir: archives
 per_page: 10
 ignore: null
@@ -55,10 +55,10 @@ public_dir: public
 tag_map: null
 subtitle: ""
 title: LDLW
-language: zh-cn
+language: zh-CN
 updated_option: mtime
 meta_generator: true
-timezone: 北京
+timezone: Asia/Shanghai
 exclude: null
 render_drafts: false
 category_map: null
