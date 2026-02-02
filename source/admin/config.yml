@@ -1,6 +1,5 @@
 # ==================================================
-# Decap CMS (Netlify CMS) 后台配置
-# AnZhiYu 主题完整版
+# Decap CMS 后台配置 - AnZhiYu 主题完整版
 # ==================================================
 
 backend:
@@ -10,21 +9,14 @@ backend:
   base_url: https://anzhiyu-auth.1797507336.workers.dev
   auth_endpoint: auth
 
-# 本地化设置
 locale: 'zh_Hans'
-
-# 媒体库配置
 media_folder: "source/img"
 public_folder: "/img"
-
-# 发布模式：simple 保存即发布，editorial_workflow 需审核
 publish_mode: simple
 
-# 编辑器配置
 editor:
   preview: true
 
-# Slug 配置
 slug:
   encoding: "unicode"
   clean_accents: true
@@ -80,18 +72,6 @@ collections:
         format: "YYYY-MM-DD HH:mm:ss"
         required: false
 
-      - label: "文章布局"
-        name: "layout"
-        widget: "hidden"
-        default: "post"
-
-      - label: "置顶序号"
-        name: "sticky"
-        widget: "number"
-        default: 0
-        required: false
-        hint: "数字越大越靠前，0表示不置顶"
-
       - label: "文章封面"
         name: "cover"
         widget: "image"
@@ -110,46 +90,30 @@ collections:
         required: false
         hint: "用于SEO和文章摘要"
 
+      - label: "置顶序号"
+        name: "sticky"
+        widget: "number"
+        default: 0
+        required: false
+        hint: "数字越大越靠前，0表示不置顶"
+
       - label: "分类"
         name: "categories"
-        widget: "select"
-        multiple: true
-        options:
-          - { label: "技术教程", value: "技术教程" }
-          - { label: "生活随笔", value: "生活随笔" }
-          - { label: "学习笔记", value: "学习笔记" }
-          - { label: "资源分享", value: "资源分享" }
-          - { label: "项目实战", value: "项目实战" }
-          - { label: "前端开发", value: "前端开发" }
-          - { label: "大学生涯", value: "大学生涯" }
-          - { label: "生活日常", value: "生活日常" }
-        hint: "选择文章分类（可多选）"
+        widget: "list"
+        required: false
+        hint: "文章分类"
 
       - label: "标签"
         name: "tags"
-        widget: "select"
-        multiple: true
-        options:
-          - { label: "JavaScript", value: "JavaScript" }
-          - { label: "React", value: "React" }
-          - { label: "Vue", value: "Vue" }
-          - { label: "Node.js", value: "Node.js" }
-          - { label: "CSS", value: "CSS" }
-          - { label: "HTML", value: "HTML" }
-          - { label: "Python", value: "Python" }
-          - { label: "Docker", value: "Docker" }
-          - { label: "前端", value: "前端" }
-          - { label: "后端", value: "后端" }
-          - { label: "数据库", value: "数据库" }
-          - { label: "工具", value: "工具" }
-          - { label: "Hexo", value: "Hexo" }
-        hint: "选择文章标签（可多选）"
-
-      - label: "文章密码"
-        name: "password"
-        widget: "string"
+        widget: "list"
         required: false
-        hint: "设置后需要密码才能查看"
+        hint: "文章标签"
+
+      - label: "开启评论"
+        name: "comments"
+        widget: "boolean"
+        default: true
+        required: false
 
       - label: "隐藏文章"
         name: "hide"
@@ -157,19 +121,12 @@ collections:
         default: false
         required: false
 
-      - label: "关闭评论"
-        name: "comments"
-        widget: "boolean"
-        default: true
-        required: false
-
       - label: "正文内容"
         name: "body"
         widget: "markdown"
-        hint: "支持Markdown语法"
 
   # ────────────────────────────────────────────────
-  # 💬 闲言碎语（说说）
+  # 💬 闲言碎语
   # ────────────────────────────────────────────────
   - name: "essays"
     label: "💬 闲言碎语"
@@ -178,38 +135,17 @@ collections:
     create: true
     extension: "md"
     format: "yaml-frontmatter"
-    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    slug: "essay-{{year}}{{month}}{{day}}-{{slug}}"
     summary: "{{title}} - {{date | date('YYYY-MM-DD')}}"
     fields:
       - label: "标题"
         name: "title"
         widget: "string"
-        hint: "用于后台识别，不会显示在前台"
 
       - label: "发布日期"
         name: "date"
         widget: "datetime"
-        date_format: "YYYY-MM-DD"
-        time_format: "HH:mm:ss"
         format: "YYYY-MM-DD HH:mm:ss"
-
-      - label: "布局"
-        name: "layout"
-        widget: "hidden"
-        default: "essay"
-
-      - label: "心情图标"
-        name: "mood"
-        widget: "select"
-        options:
-          - { label: "😊 开心", value: "happy" }
-          - { label: "😢 难过", value: "sad" }
-          - { label: "😡 生气", value: "angry" }
-          - { label: "🤔 思考", value: "thinking" }
-          - { label: "😴 困了", value: "sleepy" }
-          - { label: "🎉 庆祝", value: "celebrate" }
-          - { label: "😎 得意", value: "cool" }
-          - { label: "🥰 喜欢", value: "love" }
 
       - label: "说说内容"
         name: "body"
@@ -225,7 +161,7 @@ collections:
     create: true
     extension: "md"
     format: "yaml-frontmatter"
-    slug: "{{slug}}"
+    slug: "gallery-{{slug}}"
     fields:
       - label: "相册名称"
         name: "title"
@@ -235,11 +171,6 @@ collections:
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD HH:mm:ss"
-
-      - label: "布局"
-        name: "layout"
-        widget: "hidden"
-        default: "gallery"
 
       - label: "相册封面"
         name: "cover"
@@ -253,12 +184,11 @@ collections:
       - label: "照片列表"
         name: "photos"
         widget: "list"
-        summary: "{{fields.caption}}"
         fields:
           - label: "图片"
             name: "url"
             widget: "image"
-          - label: "图片说明"
+          - label: "说明"
             name: "caption"
             widget: "string"
             required: false
@@ -273,45 +203,22 @@ collections:
   # ────────────────────────────────────────────────
   - name: "pages"
     label: "📄 独立页面"
-    label_singular: "页面"
     files:
       - label: "关于我"
         name: "about"
         file: "source/about/index.md"
         fields:
-          - label: "标题"
-            name: "title"
-            widget: "string"
-            default: "关于我"
-          - label: "日期"
-            name: "date"
-            widget: "datetime"
-          - label: "布局"
-            name: "layout"
-            widget: "hidden"
-            default: "about"
-          - label: "内容"
-            name: "body"
-            widget: "markdown"
+          - { label: "标题", name: "title", widget: "string", default: "关于我" }
+          - { label: "日期", name: "date", widget: "datetime" }
+          - { label: "内容", name: "body", widget: "markdown" }
 
       - label: "留言板"
         name: "message"
         file: "source/message/index.md"
         fields:
-          - label: "标题"
-            name: "title"
-            widget: "string"
-            default: "留言板"
-          - label: "日期"
-            name: "date"
-            widget: "datetime"
-          - label: "顶部图片"
-            name: "top_img"
-            widget: "image"
-            required: false
-          - label: "内容"
-            name: "body"
-            widget: "markdown"
+          - { label: "标题", name: "title", widget: "string", default: "留言板" }
+          - { label: "日期", name: "date", widget: "datetime" }
+          - { label: "内容", name: "body", widget: "markdown" }
 
   # ────────────────────────────────────────────────
   # 🤝 友情链接
@@ -326,621 +233,301 @@ collections:
           - label: "友链分组"
             name: "link_list"
             widget: "list"
-            summary: "{{fields.class_name}} ({{fields.link_list.length}}个链接)"
             fields:
-              - label: "分组名称"
-                name: "class_name"
-                widget: "string"
-                hint: "例如：技术大佬、生活博主"
-              
-              - label: "分组描述"
-                name: "class_desc"
-                widget: "string"
-                required: false
-              
-              - label: "友链列表"
+              - { label: "分组名称", name: "class_name", widget: "string" }
+              - { label: "分组描述", name: "class_desc", widget: "string", required: false }
+              - label: "链接列表"
                 name: "link_list"
                 widget: "list"
-                summary: "{{fields.name}}"
                 fields:
-                  - label: "网站名称"
-                    name: "name"
-                    widget: "string"
-                  
-                  - label: "网站链接"
-                    name: "link"
-                    widget: "string"
-                    hint: "请填写完整URL，包含 https://"
-                  
-                  - label: "网站头像"
-                    name: "avatar"
-                    widget: "image"
-                  
-                  - label: "网站描述"
-                    name: "descr"
-                    widget: "string"
-                    hint: "简短描述，建议20字以内"
-                  
-                  - label: "网站颜色"
-                    name: "siteshot"
-                    widget: "color"
-                    required: false
-                    hint: "友链卡片的主题色"
+                  - { label: "名称", name: "name", widget: "string" }
+                  - { label: "链接", name: "link", widget: "string" }
+                  - { label: "头像", name: "avatar", widget: "image" }
+                  - { label: "描述", name: "descr", widget: "string" }
 
   # ────────────────────────────────────────────────
-  # ⚙️ 站点配置
+  # 🔧 博客核心配置
   # ────────────────────────────────────────────────
-  - name: "configs"
-    label: "⚙️ 站点配置"
+  - name: "site_config"
+    label: "🔧 博客核心配置"
     files:
-      - label: "🔧 博客核心配置"
-        name: "site_config"
+      - label: "站点配置 _config.yml"
+        name: "hexo_config"
         file: "_config.yml"
         fields:
-          - label: "站点标题"
-            name: "title"
-            widget: "string"
-          - label: "站点网址"
-            name: "url"
-            widget: "string"
-            hint: "例如: https://yourdomain.com"
-          - label: "站点描述"
-            name: "description"
-            widget: "text"
-            required: false
-          - label: "站点关键词"
-            name: "keywords"
-            widget: "list"
-            required: false
-          - label: "作者"
-            name: "author"
-            widget: "string"
-            required: false
+          - { label: "站点标题", name: "title", widget: "string" }
+          - { label: "副标题", name: "subtitle", widget: "string", required: false }
+          - { label: "站点描述", name: "description", widget: "text", required: false }
+          - { label: "关键词", name: "keywords", widget: "list", required: false }
+          - { label: "作者", name: "author", widget: "string" }
           - label: "语言"
             name: "language"
             widget: "select"
-            options:
-              - { label: "简体中文", value: "zh-CN" }
-              - { label: "繁體中文", value: "zh-TW" }
-              - { label: "English", value: "en" }
+            options: ["zh-CN", "zh-TW", "en"]
             default: "zh-CN"
-          - label: "时区"
-            name: "timezone"
-            widget: "string"
-            default: "Asia/Shanghai"
+          - { label: "时区", name: "timezone", widget: "string", default: "Asia/Shanghai" }
+          - { label: "站点URL", name: "url", widget: "string" }
 
-  # ════════════════════════════════════════════════
+  # ────────────────────────────────────────────────
   # 🎨 AnZhiYu 主题配置
-  # ════════════════════════════════════════════════
-  - name: "theme"
+  # ────────────────────────────────────────────────
+  - name: "theme_config"
     label: "🎨 主题配置"
     files:
 
-      # ──────────────────────────────────────────
-      # 基础配置
-      # ──────────────────────────────────────────
-      - label: "⚙️ 基础配置"
+      # ============================================
+      # 基础设置
+      # ============================================
+      - label: "⚙️ 基础设置"
         name: "basic"
         file: "_config.anzhiyu.yml"
         fields:
-          # ========== 菜单配置 ==========
-          - label: "导航菜单"
+          # 导航菜单
+          - label: "导航菜单 (menu)"
             name: "menu"
             widget: "object"
-            collapsed: false
-            hint: "配置顶部导航栏菜单"
+            collapsed: true
             fields:
               - label: "看看这"
                 name: "看看这"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "抖音"
-                    name: "抖音"
-                    widget: "string"
-                    default: "/archives/ || anzhiyu-icon-box-archive"
-                    hint: "格式：链接 || 图标类名"
-                  - label: "分类"
-                    name: "分类"
-                    widget: "string"
-                    default: "/categories/ || anzhiyu-icon-shapes"
-                  - label: "标签"
-                    name: "标签"
-                    widget: "string"
-                    default: "/tags/ || anzhiyu-icon-tags"
+                  - { label: "抖音", name: "抖音", widget: "string", default: "/archives/ || anzhiyu-icon-box-archive", required: false }
+                  - { label: "分类", name: "分类", widget: "string", default: "/categories/ || anzhiyu-icon-shapes", required: false }
+                  - { label: "标签", name: "标签", widget: "string", default: "/tags/ || anzhiyu-icon-tags", required: false }
 
-          # ========== 导航栏配置 ==========
-          - label: "导航栏配置"
-            name: "nav"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用导航栏"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "开往按钮"
-                name: "travelling"
-                widget: "boolean"
-                default: false
-              - label: "时钟"
-                name: "clock"
-                widget: "boolean"
-                default: false
-              - label: "导航菜单"
-                name: "menu"
-                widget: "list"
-                required: false
-                fields:
-                  - label: "标题"
-                    name: "title"
-                    widget: "string"
-                  - label: "子项目"
-                    name: "item"
-                    widget: "list"
-                    fields:
-                      - label: "名称"
-                        name: "name"
-                        widget: "string"
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                      - label: "图标"
-                        name: "icon"
-                        widget: "string"
-                        required: false
-
-          # ========== 哀悼日配置 ==========
-          - label: "哀悼日配置"
-            name: "mourn"
-            widget: "object"
-            collapsed: true
-            hint: "指定日期网站变灰"
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "哀悼日期"
-                name: "days"
-                widget: "list"
-                hint: "格式：月-日，如 4-5, 5-12"
-
-          # ========== 网站图标 ==========
-          - label: "网站图标"
+          # 网站图标
+          - label: "网站图标 (favicon)"
             name: "favicon"
             widget: "string"
             default: "/favicon.ico"
 
-          # ========== 头像配置 ==========
-          - label: "头像配置"
+          # 头像设置
+          - label: "头像设置 (avatar)"
             name: "avatar"
             widget: "object"
-            collapsed: false
+            collapsed: true
             fields:
-              - label: "头像图片"
-                name: "img"
-                widget: "image"
-              - label: "头像动效"
-                name: "effect"
-                widget: "boolean"
-                default: false
+              - { label: "头像图片", name: "img", widget: "image" }
+              - { label: "头像动效", name: "effect", widget: "boolean", default: false }
 
-          # ========== 社交图标 ==========
-          - label: "社交图标"
+          # 社交链接
+          - label: "社交链接 (social)"
             name: "social"
             widget: "object"
             collapsed: true
-            hint: "格式：链接 || 图标类名"
+            required: false
             fields:
-              - label: "Github"
-                name: "Github"
-                widget: "string"
-                required: false
-                hint: "https://github.com/xxx || anzhiyu-icon-github"
-              - label: "BiliBili"
-                name: "BiliBili"
-                widget: "string"
-                required: false
-                hint: "https://space.bilibili.com/xxx || anzhiyu-icon-bilibili"
-              - label: "邮箱"
-                name: "Email"
-                widget: "string"
-                required: false
-              - label: "微博"
-                name: "Weibo"
-                widget: "string"
-                required: false
+              - { label: "Github", name: "Github", widget: "string", required: false, hint: "格式: 链接 || 图标" }
+              - { label: "BiliBili", name: "BiliBili", widget: "string", required: false }
+              - { label: "Email", name: "Email", widget: "string", required: false }
+              - { label: "微博", name: "Weibo", widget: "string", required: false }
 
-          # ========== 作者卡片状态 ==========
-          - label: "作者卡片状态"
+          # 作者状态卡片
+          - label: "作者状态卡片 (author_status)"
             name: "author_status"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "状态图片"
-                name: "statusImg"
-                widget: "image"
-                hint: "可以是表情包或emoji图片"
-              - label: "技能标签"
-                name: "skills"
-                widget: "list"
-                hint: "每行一个技能标签"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "状态图片", name: "statusImg", widget: "string", required: false }
+              - { label: "技能标签", name: "skills", widget: "list", required: false }
 
-      # ──────────────────────────────────────────
-      # 外观设置
-      # ──────────────────────────────────────────
-      - label: "🎨 外观设置"
-        name: "appearance"
-        file: "_config.anzhiyu.yml"
-        fields:
-          # ========== 主题颜色 ==========
-          - label: "主题颜色"
-            name: "theme_color"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "启用自定义颜色"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "主色调"
-                name: "main"
-                widget: "color"
-                default: "#425AEF"
-              - label: "深色模式主色调"
-                name: "dark_main"
-                widget: "color"
-                default: "#f2b94b"
-              - label: "分页器颜色"
-                name: "paginator"
-                widget: "color"
-                default: "#425AEF"
-              - label: "文字选中颜色"
-                name: "text_selection"
-                widget: "color"
-                default: "#2128bd"
-              - label: "链接颜色"
-                name: "link_color"
-                widget: "string"
-                default: "var(--anzhiyu-fontcolor)"
-              - label: "目录颜色"
-                name: "toc_color"
-                widget: "color"
-                default: "#425AEF"
-              - label: "代码前景色"
-                name: "code_foreground"
-                widget: "color"
-                default: "#fff"
-              - label: "代码背景色"
-                name: "code_background"
-                widget: "string"
-                default: "var(--anzhiyu-code-stress)"
-              - label: "浅色主题背景色"
-                name: "meta_theme_color_light"
-                widget: "color"
-                default: "#f7f9fe"
-              - label: "深色主题背景色"
-                name: "meta_theme_color_dark"
-                widget: "color"
-                default: "#18171d"
-
-          # ========== 显示模式 ==========
-          - label: "默认显示模式"
-            name: "display_mode"
-            widget: "select"
-            options:
-              - { label: "浅色模式", value: "light" }
-              - { label: "深色模式", value: "dark" }
-            default: "light"
-
-          # ========== 深色模式配置 ==========
-          - label: "深色模式配置"
-            name: "darkmode"
+          # 本地搜索
+          - label: "本地搜索 (local_search)"
+            name: "local_search"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "显示切换按钮"
-                name: "button"
-                widget: "boolean"
-                default: true
-              - label: "自动切换模式"
-                name: "autoChangeMode"
-                widget: "select"
-                options:
-                  - { label: "关闭自动切换", value: false }
-                  - { label: "跟随系统", value: 1 }
-                  - { label: "定时切换(6pm-6am)", value: 2 }
-                default: 1
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "预加载", name: "preload", widget: "boolean", default: false }
 
-          # ========== 美化设置 ==========
-          - label: "美化设置"
-            name: "beautify"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "应用范围"
-                name: "field"
-                widget: "select"
-                options:
-                  - { label: "全站", value: "site" }
-                  - { label: "仅文章页", value: "post" }
-                default: "post"
-              - label: "标题前缀图标"
-                name: "title-prefix-icon"
-                widget: "string"
-                default: "\\f0c1"
-              - label: "标题前缀图标颜色"
-                name: "title-prefix-icon-color"
-                widget: "color"
-                default: "#F47466"
-
-          # ========== 字体设置 ==========
-          - label: "字体设置"
-            name: "font"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "全局字体大小"
-                name: "global-font-size"
-                widget: "string"
-                default: "16px"
-              - label: "代码字体大小"
-                name: "code-font-size"
-                widget: "string"
-                required: false
-              - label: "字体族"
-                name: "font-family"
-                widget: "string"
-                required: false
-              - label: "代码字体族"
-                name: "code-font-family"
-                widget: "string"
-                default: "consolas, Menlo, 'PingFang SC', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif"
-
-          # ========== 首页双栏 ==========
-          - label: "首页双栏显示"
-            name: "article_double_row"
-            widget: "boolean"
-            default: true
-
-          # ========== 表格隔行变色 ==========
-          - label: "表格隔行变色"
-            name: "table_interlaced_discoloration"
-            widget: "boolean"
-            default: false
-
-          # ========== h2分隔线 ==========
-          - label: "文章h2添加分隔线"
-            name: "h2Divider"
-            widget: "boolean"
-            default: false
-
-      # ──────────────────────────────────────────
-      # 代码设置
-      # ──────────────────────────────────────────
-      - label: "💻 代码设置"
-        name: "code"
-        file: "_config.anzhiyu.yml"
-        fields:
-          - label: "代码高亮主题"
+          # 代码设置
+          - label: "代码高亮主题 (highlight_theme)"
             name: "highlight_theme"
             widget: "select"
-            options:
-              - { label: "浅色", value: "light" }
-              - { label: "深色", value: "darker" }
-              - { label: "暗夜", value: "pale night" }
-              - { label: "海洋", value: "ocean" }
-              - { label: "Mac风格", value: "mac" }
-              - { label: "Mac浅色", value: "mac light" }
-              - { label: "关闭", value: false }
+            options: ["light", "darker", "pale night", "ocean", "mac", "mac light"]
             default: "light"
 
-          - label: "代码复制按钮"
-            name: "highlight_copy"
-            widget: "boolean"
-            default: true
-
-          - label: "显示代码语言"
-            name: "highlight_lang"
-            widget: "boolean"
-            default: true
-
-          - label: "代码块收缩"
+          - { label: "代码复制按钮 (highlight_copy)", name: "highlight_copy", widget: "boolean", default: true }
+          - { label: "显示代码语言 (highlight_lang)", name: "highlight_lang", widget: "boolean", default: true }
+          - label: "代码收缩 (highlight_shrink)"
             name: "highlight_shrink"
             widget: "select"
             options:
-              - { label: "展开", value: false }
-              - { label: "收缩", value: true }
+              - { label: "展开", value: "false" }
+              - { label: "收缩", value: "true" }
               - { label: "展开并隐藏按钮", value: "none" }
-            default: false
+            default: "false"
+          - { label: "代码高度限制 (highlight_height_limit)", name: "highlight_height_limit", widget: "number", default: 330 }
 
-          - label: "代码块高度限制(px)"
-            name: "highlight_height_limit"
-            widget: "number"
-            default: 330
-
-          - label: "代码自动换行"
-            name: "code_word_wrap"
-            widget: "boolean"
-            default: false
-
-          - label: "复制设置"
+          # 复制设置
+          - label: "复制设置 (copy)"
             name: "copy"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
               - label: "版权信息"
                 name: "copyright"
                 widget: "object"
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "字数限制"
-                    name: "limit_count"
-                    widget: "number"
-                    default: 50
-                    hint: "超过此字数复制时添加版权信息"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "字数限制", name: "limit_count", widget: "number", default: 50 }
 
-      # ──────────────────────────────────────────
+      # ============================================
+      # 外观设置
+      # ============================================
+      - label: "🎨 外观设置"
+        name: "appearance"
+        file: "_config.anzhiyu.yml"
+        fields:
+          # 主题颜色
+          - label: "主题颜色 (theme_color)"
+            name: "theme_color"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "主色调", name: "main", widget: "string", default: "#425AEF" }
+              - { label: "深色主色调", name: "dark_main", widget: "string", default: "#f2b94b" }
+              - { label: "分页器颜色", name: "paginator", widget: "string", default: "#425AEF" }
+              - { label: "文字选中色", name: "text_selection", widget: "string", default: "#2128bd" }
+              - { label: "链接颜色", name: "link_color", widget: "string", default: "var(--anzhiyu-fontcolor)" }
+              - { label: "目录颜色", name: "toc_color", widget: "string", default: "#425AEF" }
+              - { label: "浅色主题色", name: "meta_theme_color_light", widget: "string", default: "#f7f9fe" }
+              - { label: "深色主题色", name: "meta_theme_color_dark", widget: "string", default: "#18171d" }
+
+          # 深色模式
+          - label: "深色模式 (darkmode)"
+            name: "darkmode"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "显示按钮", name: "button", widget: "boolean", default: true }
+              - label: "自动切换模式"
+                name: "autoChangeMode"
+                widget: "select"
+                options:
+                  - { label: "跟随系统", value: "1" }
+                  - { label: "定时切换", value: "2" }
+                  - { label: "关闭", value: "false" }
+                default: "1"
+
+          # 默认显示模式
+          - label: "默认显示模式 (display_mode)"
+            name: "display_mode"
+            widget: "select"
+            options: ["light", "dark"]
+            default: "light"
+
+          # 美化设置
+          - label: "美化设置 (beautify)"
+            name: "beautify"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - label: "应用范围"
+                name: "field"
+                widget: "select"
+                options: ["site", "post"]
+                default: "post"
+              - { label: "标题图标", name: "title-prefix-icon", widget: "string", default: "\\f0c1" }
+              - { label: "标题图标颜色", name: "title-prefix-icon-color", widget: "string", default: "#F47466" }
+
+          # 字体设置
+          - label: "字体设置 (font)"
+            name: "font"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "全局字体大小", name: "global-font-size", widget: "string", default: "16px" }
+              - { label: "代码字体大小", name: "code-font-size", widget: "string", required: false }
+              - { label: "字体家族", name: "font-family", widget: "string", required: false }
+
+          # 双栏布局
+          - { label: "首页双栏显示 (article_double_row)", name: "article_double_row", widget: "boolean", default: true }
+
+          # 表格隔行变色
+          - { label: "表格隔行变色", name: "table_interlaced_discoloration", widget: "boolean", default: false }
+
+          # 分隔线设置
+          - label: "分隔线设置 (hr_icon)"
+            name: "hr_icon"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "图标", name: "icon", widget: "string", default: "\\f0c4" }
+
+      # ============================================
       # 首页配置
-      # ──────────────────────────────────────────
+      # ============================================
       - label: "🏠 首页配置"
         name: "home"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "首页顶部配置"
+          # 首页顶部
+          - label: "首页顶部 (home_top)"
             name: "home_top"
             widget: "object"
             collapsed: false
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
               - label: "时间模式"
                 name: "timemode"
                 widget: "select"
-                options:
-                  - { label: "创建时间", value: "date" }
-                  - { label: "更新时间", value: "updated" }
+                options: ["date", "updated"]
                 default: "date"
-              - label: "标题"
-                name: "title"
-                widget: "string"
-                hint: "首页大标题"
-              - label: "副标题"
-                name: "subTitle"
-                widget: "string"
-              - label: "站点文字"
-                name: "siteText"
-                widget: "string"
-              - label: "默认描述"
-                name: "default_descr"
-                widget: "string"
-                default: "再怎么看我也不知道怎么描述它的啦！"
-              - label: "分类列表"
+              - { label: "标题", name: "title", widget: "string" }
+              - { label: "副标题", name: "subTitle", widget: "string" }
+              - { label: "站点文字", name: "siteText", widget: "string" }
+              - { label: "默认描述", name: "default_descr", widget: "string" }
+              - label: "分类按钮"
                 name: "category"
                 widget: "list"
                 fields:
-                  - label: "名称"
-                    name: "name"
-                    widget: "string"
-                  - label: "路径"
-                    name: "path"
-                    widget: "string"
-                  - label: "阴影颜色"
-                    name: "shadow"
-                    widget: "string"
-                    hint: "如：var(--anzhiyu-shadow-blue)"
-                  - label: "样式类"
-                    name: "class"
-                    widget: "select"
-                    options: ["blue", "red", "green", "yellow", "orange", "purple"]
-                  - label: "图标"
-                    name: "icon"
-                    widget: "string"
-              - label: "轮播图配置"
+                  - { label: "名称", name: "name", widget: "string" }
+                  - { label: "路径", name: "path", widget: "string" }
+                  - { label: "阴影", name: "shadow", widget: "string" }
+                  - { label: "样式类", name: "class", widget: "string" }
+                  - { label: "图标", name: "icon", widget: "string" }
+              - label: "轮播图"
                 name: "swiper"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: false
-                  - label: "Swiper CSS"
-                    name: "swiper_css"
-                    widget: "string"
-                    required: false
-                  - label: "Swiper JS"
-                    name: "swiper_js"
-                    widget: "string"
-                    required: false
-              - label: "横幅配置"
+                  - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - label: "横幅"
                 name: "banner"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "提示文字"
-                    name: "tips"
-                    widget: "string"
-                  - label: "标题"
-                    name: "title"
-                    widget: "string"
-                  - label: "图片"
-                    name: "image"
-                    widget: "image"
-                  - label: "链接"
-                    name: "link"
-                    widget: "string"
+                  - { label: "提示文字", name: "tips", widget: "string", required: false }
+                  - { label: "标题", name: "title", widget: "string", required: false }
+                  - { label: "图片", name: "image", widget: "image", required: false }
+                  - { label: "链接", name: "link", widget: "string", required: false }
 
-          - label: "禁用顶部图"
-            name: "disable_top_img"
-            widget: "boolean"
-            default: false
-
-          - label: "首页顶部图"
-            name: "index_img"
-            widget: "string"
-            default: "false"
-            required: false
-
-          - label: "默认顶部图"
-            name: "default_top_img"
-            widget: "string"
-            default: "false"
-            required: false
-
-          - label: "封面配置"
+          # 封面设置
+          - label: "封面设置 (cover)"
             name: "cover"
             widget: "object"
             collapsed: true
             fields:
-              - label: "首页显示封面"
-                name: "index_enable"
-                widget: "boolean"
-                default: true
-              - label: "侧边栏显示封面"
-                name: "aside_enable"
-                widget: "boolean"
-                default: true
-              - label: "归档页显示封面"
-                name: "archives_enable"
-                widget: "boolean"
-                default: true
+              - { label: "首页显示封面", name: "index_enable", widget: "boolean", default: true }
+              - { label: "侧边栏显示封面", name: "aside_enable", widget: "boolean", default: true }
+              - { label: "归档页显示封面", name: "archives_enable", widget: "boolean", default: true }
               - label: "封面位置"
                 name: "position"
                 widget: "select"
-                options:
-                  - { label: "左侧", value: "left" }
-                  - { label: "右侧", value: "right" }
-                  - { label: "两侧交替", value: "both" }
+                options: ["left", "right", "both"]
                 default: "left"
-              - label: "默认封面"
-                name: "default_cover"
-                widget: "list"
-                required: false
 
-          - label: "文章摘要显示"
+          # 文章内容显示
+          - label: "首页文章内容 (index_post_content)"
             name: "index_post_content"
             widget: "object"
             collapsed: true
@@ -949,204 +536,110 @@ collections:
                 name: "method"
                 widget: "select"
                 options:
-                  - { label: "描述", value: 1 }
-                  - { label: "描述优先", value: 2 }
-                  - { label: "自动截取", value: 3 }
-                  - { label: "不显示", value: false }
-                default: 3
-              - label: "截取长度"
-                name: "length"
-                widget: "number"
-                default: 500
+                  - { label: "描述", value: "1" }
+                  - { label: "描述或摘要", value: "2" }
+                  - { label: "自动摘要", value: "3" }
+                default: "3"
+              - { label: "摘要长度", name: "length", widget: "number", default: 500 }
 
-      # ──────────────────────────────────────────
-      # 侧边栏配置
-      # ──────────────────────────────────────────
-      - label: "📋 侧边栏"
+          # 副标题打字效果
+          - label: "副标题 (subtitle)"
+            name: "subtitle"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "打字效果", name: "effect", widget: "boolean", default: true }
+              - { label: "循环", name: "loop", widget: "boolean", default: true }
+              - label: "数据来源"
+                name: "source"
+                widget: "select"
+                options:
+                  - { label: "关闭", value: "false" }
+                  - { label: "一言", value: "1" }
+                  - { label: "一句", value: "2" }
+                  - { label: "今日诗词", value: "3" }
+                default: "1"
+              - { label: "自定义文字", name: "sub", widget: "list", required: false }
+
+      # ============================================
+      # 侧边栏设置
+      # ============================================
+      - label: "📋 侧边栏设置"
         name: "sidebar"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "侧边栏配置"
+          - label: "侧边栏 (aside)"
             name: "aside"
             widget: "object"
             collapsed: false
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "默认隐藏"
-                name: "hide"
-                widget: "boolean"
-                default: false
-              - label: "显示切换按钮"
-                name: "button"
-                widget: "boolean"
-                default: true
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: true
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "默认隐藏", name: "hide", widget: "boolean", default: false }
+              - { label: "显示按钮", name: "button", widget: "boolean", default: true }
+              - { label: "移动端显示", name: "mobile", widget: "boolean", default: true }
               - label: "位置"
                 name: "position"
                 widget: "select"
-                options:
-                  - { label: "左侧", value: "left" }
-                  - { label: "右侧", value: "right" }
+                options: ["left", "right"]
                 default: "right"
-              - label: "页面显示控制"
-                name: "display"
-                widget: "object"
-                fields:
-                  - label: "归档页"
-                    name: "archive"
-                    widget: "boolean"
-                    default: true
-                  - label: "标签页"
-                    name: "tag"
-                    widget: "boolean"
-                    default: true
-                  - label: "分类页"
-                    name: "category"
-                    widget: "boolean"
-                    default: true
               - label: "作者卡片"
                 name: "card_author"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "描述"
-                    name: "description"
-                    widget: "text"
-                    required: false
-                  - label: "名字链接"
-                    name: "name_link"
-                    widget: "string"
-                    default: "/"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "描述", name: "description", widget: "text", required: false }
+                  - { label: "链接", name: "name_link", widget: "string", default: "/" }
               - label: "公告卡片"
                 name: "card_announcement"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: false
-                  - label: "内容"
-                    name: "content"
-                    widget: "text"
-              - label: "最新文章卡片"
+                  - { label: "启用", name: "enable", widget: "boolean", default: false }
+                  - { label: "内容", name: "content", widget: "string", required: false }
+              - label: "最新文章"
                 name: "card_recent_post"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示数量"
-                    name: "limit"
-                    widget: "number"
-                    default: 5
-                  - label: "排序方式"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "显示数量", name: "limit", widget: "number", default: 5 }
+                  - label: "排序"
                     name: "sort"
                     widget: "select"
-                    options:
-                      - { label: "创建时间", value: "date" }
-                      - { label: "更新时间", value: "updated" }
+                    options: ["date", "updated"]
                     default: "date"
-              - label: "分类卡片"
-                name: "card_categories"
-                widget: "object"
-                collapsed: true
-                fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: false
-                  - label: "显示数量"
-                    name: "limit"
-                    widget: "number"
-                    default: 8
-                  - label: "展开方式"
-                    name: "expand"
-                    widget: "select"
-                    options:
-                      - { label: "不展开", value: "none" }
-                      - { label: "全部展开", value: true }
-                      - { label: "全部收起", value: false }
-                    default: "none"
               - label: "标签卡片"
                 name: "card_tags"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示数量"
-                    name: "limit"
-                    widget: "number"
-                    default: 40
-                  - label: "彩色标签"
-                    name: "color"
-                    widget: "boolean"
-                    default: false
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "显示数量", name: "limit", widget: "number", default: 40 }
+                  - { label: "彩色标签", name: "color", widget: "boolean", default: false }
               - label: "归档卡片"
                 name: "card_archives"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
                   - label: "类型"
                     name: "type"
                     widget: "select"
-                    options:
-                      - { label: "按月", value: "monthly" }
-                      - { label: "按年", value: "yearly" }
+                    options: ["monthly", "yearly"]
                     default: "monthly"
-                  - label: "格式"
-                    name: "format"
-                    widget: "string"
-                    default: "MMMM YYYY"
-                  - label: "排序"
-                    name: "order"
-                    widget: "select"
-                    options:
-                      - { label: "升序", value: 1 }
-                      - { label: "降序", value: -1 }
-                    default: -1
-                  - label: "显示数量"
-                    name: "limit"
-                    widget: "number"
-                    default: 8
-              - label: "网站信息卡片"
+                  - { label: "显示数量", name: "limit", widget: "number", default: 8 }
+              - label: "网站信息"
                 name: "card_webinfo"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示文章数"
-                    name: "post_count"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示最后更新"
-                    name: "last_push_date"
-                    widget: "boolean"
-                    default: false
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "显示文章数", name: "post_count", widget: "boolean", default: true }
 
-          - label: "移动端侧栏"
+          # 移动端侧边栏
+          - label: "移动端侧边栏 (sidebar)"
             name: "sidebar"
             widget: "object"
             collapsed: true
@@ -1155,1337 +648,572 @@ collections:
                 name: "site_data"
                 widget: "object"
                 fields:
-                  - label: "归档"
-                    name: "archive"
-                    widget: "boolean"
-                    default: true
-                  - label: "标签"
-                    name: "tag"
-                    widget: "boolean"
-                    default: true
-                  - label: "分类"
-                    name: "category"
-                    widget: "boolean"
-                    default: true
-              - label: "菜单项"
-                name: "menus_items"
-                widget: "boolean"
-                default: true
-              - label: "标签云"
-                name: "tags_cloud"
-                widget: "boolean"
-                default: true
-              - label: "显示模式切换"
-                name: "display_mode"
-                widget: "boolean"
-                default: true
-              - label: "导航菜单项目"
-                name: "nav_menu_project"
-                widget: "boolean"
-                default: true
+                  - { label: "归档", name: "archive", widget: "boolean", default: true }
+                  - { label: "标签", name: "tag", widget: "boolean", default: true }
+                  - { label: "分类", name: "category", widget: "boolean", default: true }
+              - { label: "菜单项", name: "menus_items", widget: "boolean", default: true }
+              - { label: "标签云", name: "tags_cloud", widget: "boolean", default: true }
+              - { label: "显示模式切换", name: "display_mode", widget: "boolean", default: true }
 
-      # ──────────────────────────────────────────
+      # ============================================
       # 文章设置
-      # ──────────────────────────────────────────
+      # ============================================
       - label: "📝 文章设置"
         name: "post"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "文章元信息(首页)"
+          # 文章元信息
+          - label: "文章元信息 (post_meta)"
             name: "post_meta"
             widget: "object"
             collapsed: false
             fields:
-              - label: "首页设置"
+              - label: "首页"
                 name: "page"
                 widget: "object"
                 fields:
                   - label: "日期类型"
                     name: "date_type"
                     widget: "select"
-                    options:
-                      - { label: "创建日期", value: "created" }
-                      - { label: "更新日期", value: "updated" }
-                      - { label: "两者都显示", value: "both" }
+                    options: ["created", "updated", "both"]
                     default: "created"
                   - label: "日期格式"
                     name: "date_format"
                     widget: "select"
-                    options:
-                      - { label: "完整日期", value: "date" }
-                      - { label: "相对时间", value: "relative" }
-                      - { label: "简单日期", value: "simple" }
+                    options: ["date", "relative", "simple"]
                     default: "simple"
-                  - label: "显示分类"
-                    name: "categories"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示标签"
-                    name: "tags"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示标签文字"
-                    name: "label"
-                    widget: "boolean"
-                    default: false
-              - label: "文章页设置"
+                  - { label: "显示分类", name: "categories", widget: "boolean", default: true }
+                  - { label: "显示标签", name: "tags", widget: "boolean", default: true }
+              - label: "文章页"
                 name: "post"
                 widget: "object"
                 fields:
                   - label: "日期类型"
                     name: "date_type"
                     widget: "select"
-                    options:
-                      - { label: "创建日期", value: "created" }
-                      - { label: "更新日期", value: "updated" }
-                      - { label: "两者都显示", value: "both" }
+                    options: ["created", "updated", "both"]
                     default: "both"
-                  - label: "日期格式"
-                    name: "date_format"
-                    widget: "select"
-                    options:
-                      - { label: "完整日期", value: "date" }
-                      - { label: "相对时间", value: "relative" }
-                    default: "date"
-                  - label: "显示分类"
-                    name: "categories"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示标签"
-                    name: "tags"
-                    widget: "boolean"
-                    default: true
-                  - label: "显示标签文字"
-                    name: "label"
-                    widget: "boolean"
-                    default: true
-                  - label: "未读功能"
-                    name: "unread"
-                    widget: "boolean"
-                    default: false
+                  - { label: "显示分类", name: "categories", widget: "boolean", default: true }
+                  - { label: "显示标签", name: "tags", widget: "boolean", default: true }
 
-          - label: "目录配置"
+          # 目录
+          - label: "目录 (toc)"
             name: "toc"
             widget: "object"
             collapsed: true
             fields:
-              - label: "文章页显示目录"
-                name: "post"
-                widget: "boolean"
-                default: true
-              - label: "页面显示目录"
-                name: "page"
-                widget: "boolean"
-                default: false
-              - label: "显示序号"
-                name: "number"
-                widget: "boolean"
-                default: true
-              - label: "自动展开"
-                name: "expand"
-                widget: "boolean"
-                default: false
-              - label: "简洁模式"
-                name: "style_simple"
-                widget: "boolean"
-                default: false
+              - { label: "文章页显示", name: "post", widget: "boolean", default: true }
+              - { label: "独立页显示", name: "page", widget: "boolean", default: false }
+              - { label: "显示序号", name: "number", widget: "boolean", default: true }
+              - { label: "默认展开", name: "expand", widget: "boolean", default: false }
 
-          - label: "文章版权"
+          # 版权信息
+          - label: "版权信息 (post_copyright)"
             name: "post_copyright"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "解码URL"
-                name: "decode"
-                widget: "boolean"
-                default: false
-              - label: "作者链接"
-                name: "author_href"
-                widget: "string"
-                required: false
-              - label: "所在地"
-                name: "location"
-                widget: "string"
-                default: "火星"
-              - label: "许可协议"
-                name: "license"
-                widget: "string"
-                default: "CC BY-NC-SA 4.0"
-              - label: "协议链接"
-                name: "license_url"
-                widget: "string"
-                default: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
-              - label: "头像下沉效果"
-                name: "avatarSinks"
-                widget: "boolean"
-                default: false
-              - label: "作者链接"
-                name: "copyright_author_link"
-                widget: "string"
-                default: "/"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "作者链接", name: "author_href", widget: "string", required: false }
+              - { label: "位置", name: "location", widget: "string", default: "火星" }
+              - { label: "许可证", name: "license", widget: "string", default: "CC BY-NC-SA 4.0" }
+              - { label: "许可证链接", name: "license_url", widget: "string", default: "https://creativecommons.org/licenses/by-nc-sa/4.0/" }
 
-          - label: "打赏配置"
+          # 打赏
+          - label: "打赏 (reward)"
             name: "reward"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "二维码列表"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - label: "二维码"
                 name: "QR_code"
                 widget: "list"
                 fields:
-                  - label: "图片"
-                    name: "img"
-                    widget: "image"
-                  - label: "链接"
-                    name: "link"
-                    widget: "string"
-                    required: false
-                  - label: "文字"
-                    name: "text"
-                    widget: "string"
+                  - { label: "图片", name: "img", widget: "image" }
+                  - { label: "文字", name: "text", widget: "string" }
+                  - { label: "链接", name: "link", widget: "string", required: false }
 
-          - label: "相关文章"
+          # 相关文章
+          - label: "相关文章 (related_post)"
             name: "related_post"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "显示数量"
-                name: "limit"
-                widget: "number"
-                default: 6
-              - label: "日期类型"
-                name: "date_type"
-                widget: "select"
-                options:
-                  - { label: "创建日期", value: "created" }
-                  - { label: "更新日期", value: "updated" }
-                default: "created"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "显示数量", name: "limit", widget: "number", default: 6 }
 
-          - label: "文章分页"
-            name: "post_pagination"
-            widget: "select"
-            options:
-              - { label: "下一篇链接到旧文章", value: 1 }
-              - { label: "下一篇链接到新文章", value: 2 }
-              - { label: "滚动到评论区显示(旧)", value: 3 }
-              - { label: "滚动到评论区显示带封面(旧)", value: 4 }
-              - { label: "禁用", value: false }
-            default: 2
-
-          - label: "文章过期提醒"
-            name: "noticeOutdate"
+          # 分享
+          - label: "分享 (sharejs)"
+            name: "sharejs"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "样式"
-                name: "style"
-                widget: "select"
-                options:
-                  - { label: "简洁", value: "simple" }
-                  - { label: "扁平", value: "flat" }
-                default: "flat"
-              - label: "天数限制"
-                name: "limit_day"
-                widget: "number"
-                default: 365
-              - label: "位置"
-                name: "position"
-                widget: "select"
-                options:
-                  - { label: "顶部", value: "top" }
-                  - { label: "底部", value: "bottom" }
-                default: "top"
-              - label: "提示前缀"
-                name: "message_prev"
-                widget: "string"
-                default: "It has been"
-              - label: "提示后缀"
-                name: "message_next"
-                widget: "string"
-                default: "days since the last update, the content of the article may be outdated."
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "分享平台", name: "sites", widget: "string", default: "facebook,twitter,wechat,weibo,qq" }
 
-          - label: "AI摘要"
+          # AI摘要
+          - label: "AI摘要 (post_head_ai_description)"
             name: "post_head_ai_description"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "GPT名称"
-                name: "gptName"
-                widget: "string"
-                default: "AnZhiYu"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "GPT名称", name: "gptName", widget: "string", default: "AnZhiYu" }
               - label: "模式"
                 name: "mode"
                 widget: "select"
-                options:
-                  - { label: "本地", value: "local" }
-                  - { label: "天力API", value: "tianli" }
+                options: ["local", "tianli"]
                 default: "local"
-              - label: "显示切换按钮"
-                name: "switchBtn"
-                widget: "boolean"
-                default: false
-              - label: "随机次数"
-                name: "randomNum"
-                widget: "number"
-                default: 3
-              - label: "最低字数"
-                name: "basicWordCount"
-                widget: "number"
-                default: 1000
+              - { label: "随机次数", name: "randomNum", widget: "number", default: 3 }
 
-      # ──────────────────────────────────────────
+          # 过期提醒
+          - label: "过期提醒 (noticeOutdate)"
+            name: "noticeOutdate"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - label: "样式"
+                name: "style"
+                widget: "select"
+                options: ["simple", "flat"]
+                default: "flat"
+              - { label: "天数限制", name: "limit_day", widget: "number", default: 365 }
+
+      # ============================================
       # 页脚设置
-      # ──────────────────────────────────────────
+      # ============================================
       - label: "📄 页脚设置"
         name: "footer_config"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "页脚配置"
+          - label: "页脚 (footer)"
             name: "footer"
             widget: "object"
             collapsed: false
             fields:
-              - label: "站长信息"
+              - label: "所有者"
                 name: "owner"
                 widget: "object"
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "建站年份"
-                    name: "since"
-                    widget: "number"
-                    default: 2024
-              - label: "自定义文本"
-                name: "custom_text"
-                widget: "text"
-                required: false
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "起始年份", name: "since", widget: "number", default: 2024 }
+              - { label: "自定义文本", name: "custom_text", widget: "string", required: false }
               - label: "运行时间"
                 name: "runtime"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: false
-                  - label: "上线时间"
-                    name: "launch_time"
-                    widget: "string"
-                    default: "08/08/2024 00:00:00"
-                  - label: "上班图标"
-                    name: "work_img"
-                    widget: "string"
-                    required: false
-                  - label: "上班描述"
-                    name: "work_description"
-                    widget: "string"
-                    required: false
-                  - label: "下班图标"
-                    name: "offduty_img"
-                    widget: "string"
-                    required: false
-                  - label: "下班描述"
-                    name: "offduty_description"
-                    widget: "string"
-                    required: false
-              - label: "徽标配置"
+                  - { label: "启用", name: "enable", widget: "boolean", default: false }
+                  - { label: "上线时间", name: "launch_time", widget: "string", default: "08/08/2024 00:00:00" }
+              - label: "徽标"
                 name: "bdageitem"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "徽标列表"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - label: "列表"
                     name: "list"
                     widget: "list"
                     fields:
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                      - label: "图标URL"
-                        name: "shields"
-                        widget: "string"
-                      - label: "提示信息"
-                        name: "message"
-                        widget: "string"
+                      - { label: "链接", name: "link", widget: "string" }
+                      - { label: "徽标图片", name: "shields", widget: "string" }
+                      - { label: "提示", name: "message", widget: "string" }
               - label: "社交栏"
                 name: "socialBar"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "中间图片"
-                    name: "centerImg"
-                    widget: "image"
-                    required: false
-                  - label: "左侧链接"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - label: "左侧"
                     name: "left"
                     widget: "list"
                     fields:
-                      - label: "标题"
-                        name: "title"
-                        widget: "string"
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                      - label: "图标"
-                        name: "icon"
-                        widget: "string"
-                  - label: "右侧链接"
+                      - { label: "标题", name: "title", widget: "string" }
+                      - { label: "链接", name: "link", widget: "string" }
+                      - { label: "图标", name: "icon", widget: "string" }
+                  - label: "右侧"
                     name: "right"
                     widget: "list"
                     fields:
-                      - label: "标题"
-                        name: "title"
-                        widget: "string"
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                      - label: "图标"
-                        name: "icon"
-                        widget: "string"
+                      - { label: "标题", name: "title", widget: "string" }
+                      - { label: "链接", name: "link", widget: "string" }
+                      - { label: "图标", name: "icon", widget: "string" }
               - label: "底部栏"
                 name: "footerBar"
                 widget: "object"
                 collapsed: true
                 fields:
-                  - label: "启用"
-                    name: "enable"
-                    widget: "boolean"
-                    default: true
-                  - label: "作者链接"
-                    name: "authorLink"
-                    widget: "string"
-                    default: "/"
-                  - label: "CC协议"
-                    name: "cc"
-                    widget: "object"
-                    fields:
-                      - label: "启用"
-                        name: "enable"
-                        widget: "boolean"
-                        default: false
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                        default: "/copyright"
+                  - { label: "启用", name: "enable", widget: "boolean", default: true }
+                  - { label: "作者链接", name: "authorLink", widget: "string", default: "/" }
                   - label: "链接列表"
                     name: "linkList"
                     widget: "list"
                     fields:
-                      - label: "链接"
-                        name: "link"
-                        widget: "string"
-                      - label: "文字"
-                        name: "text"
-                        widget: "string"
-                  - label: "副标题配置"
+                      - { label: "链接", name: "link", widget: "string" }
+                      - { label: "文字", name: "text", widget: "string" }
+                  - label: "副标题"
                     name: "subTitle"
                     widget: "object"
                     fields:
-                      - label: "启用"
-                        name: "enable"
-                        widget: "boolean"
-                        default: true
-                      - label: "打字效果"
-                        name: "effect"
-                        widget: "boolean"
-                        default: true
-                      - label: "开始延迟(ms)"
-                        name: "startDelay"
-                        widget: "number"
-                        default: 300
-                      - label: "打字速度(ms)"
-                        name: "typeSpeed"
-                        widget: "number"
-                        default: 150
-                      - label: "退格速度(ms)"
-                        name: "backSpeed"
-                        widget: "number"
-                        default: 50
-                      - label: "循环"
-                        name: "loop"
-                        widget: "boolean"
-                        default: true
-                      - label: "内容来源"
-                        name: "source"
-                        widget: "select"
-                        options:
-                          - { label: "关闭", value: false }
-                          - { label: "一言网", value: 1 }
-                          - { label: "一句网", value: 2 }
-                          - { label: "今日诗词", value: 3 }
-                        default: 1
-                      - label: "自定义文字"
-                        name: "sub"
-                        widget: "list"
-                        required: false
+                      - { label: "启用", name: "enable", widget: "boolean", default: true }
+                      - { label: "打字效果", name: "effect", widget: "boolean", default: true }
+                      - { label: "循环", name: "loop", widget: "boolean", default: true }
 
-      # ──────────────────────────────────────────
-      # 评论系统
-      # ──────────────────────────────────────────
-      - label: "💬 评论系统"
-        name: "comments_config"
-        file: "_config.anzhiyu.yml"
-        fields:
-          - label: "评论配置"
-            name: "comments"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "使用的评论系统"
-                name: "use"
-                widget: "select"
-                options:
-                  - { label: "不使用", value: "" }
-                  - { label: "Twikoo", value: "Twikoo" }
-                  - { label: "Waline", value: "Waline" }
-                  - { label: "Valine", value: "Valine" }
-                  - { label: "Artalk", value: "Artalk" }
-                  - { label: "Twikoo和Waline", value: "Twikoo,Waline" }
-                required: false
-              - label: "显示评论名称"
-                name: "text"
-                widget: "boolean"
-                default: true
-              - label: "懒加载评论"
-                name: "lazyload"
-                widget: "boolean"
-                default: false
-              - label: "显示评论数"
-                name: "count"
-                widget: "boolean"
-                default: false
-              - label: "首页显示评论数"
-                name: "card_post_count"
-                widget: "boolean"
-                default: false
-
-          - label: "Twikoo配置"
-            name: "twikoo"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "环境ID"
-                name: "envId"
-                widget: "string"
-                required: false
-              - label: "区域"
-                name: "region"
-                widget: "string"
-                required: false
-              - label: "访客统计"
-                name: "visitor"
-                widget: "boolean"
-                default: false
-
-          - label: "Waline配置"
-            name: "waline"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "服务端地址"
-                name: "serverURL"
-                widget: "string"
-                required: false
-              - label: "背景图"
-                name: "bg"
-                widget: "image"
-                required: false
-              - label: "页面访问量"
-                name: "pageview"
-                widget: "boolean"
-                default: false
-              - label: "显示元信息图标"
-                name: "meta"
-                widget: "boolean"
-                default: false
-              - label: "图片上传"
-                name: "imageUploader"
-                widget: "boolean"
-                default: true
-
-          - label: "Valine配置"
-            name: "valine"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "App ID"
-                name: "appId"
-                widget: "string"
-                required: false
-              - label: "App Key"
-                name: "appKey"
-                widget: "string"
-                required: false
-              - label: "每页数量"
-                name: "pageSize"
-                widget: "number"
-                default: 10
-              - label: "头像样式"
-                name: "avatar"
-                widget: "string"
-                default: "mp"
-              - label: "语言"
-                name: "lang"
-                widget: "select"
-                options:
-                  - { label: "简体中文", value: "zh-CN" }
-                  - { label: "繁体中文", value: "zh-TW" }
-                  - { label: "英文", value: "en" }
-                  - { label: "日文", value: "ja" }
-                default: "zh-CN"
-              - label: "占位符"
-                name: "placeholder"
-                widget: "string"
-                default: "填写QQ邮箱就会使用QQ头像喔~."
-              - label: "访客信息"
-                name: "guest_info"
-                widget: "string"
-                default: "nick,mail,link"
-              - label: "记录IP"
-                name: "recordIP"
-                widget: "boolean"
-                default: false
-              - label: "背景图"
-                name: "bg"
-                widget: "image"
-                required: false
-              - label: "启用QQ"
-                name: "enableQQ"
-                widget: "boolean"
-                default: true
-              - label: "访客统计"
-                name: "visitor"
-                widget: "boolean"
-                default: false
-
-          - label: "Artalk配置"
-            name: "artalk"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "服务端地址"
-                name: "server"
-                widget: "string"
-                required: false
-              - label: "站点名"
-                name: "site"
-                widget: "string"
-                required: false
-              - label: "访客统计"
-                name: "visitor"
-                widget: "boolean"
-                default: false
-
-      # ──────────────────────────────────────────
-      # 搜索配置
-      # ──────────────────────────────────────────
-      - label: "🔍 搜索配置"
-        name: "search_config"
-        file: "_config.anzhiyu.yml"
-        fields:
-          - label: "本地搜索"
-            name: "local_search"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "预加载"
-                name: "preload"
-                widget: "boolean"
-                default: false
-              - label: "CDN"
-                name: "CDN"
-                widget: "string"
-                required: false
-
-          - label: "Algolia搜索"
-            name: "algolia_search"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "每页数量"
-                name: "hits"
-                widget: "object"
-                fields:
-                  - label: "每页数量"
-                    name: "per_page"
-                    widget: "number"
-                    default: 6
-
-          - label: "DocSearch"
-            name: "docsearch"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "App ID"
-                name: "appId"
-                widget: "string"
-                required: false
-              - label: "API Key"
-                name: "apiKey"
-                widget: "string"
-                required: false
-              - label: "索引名"
-                name: "indexName"
-                widget: "string"
-                required: false
-
-      # ──────────────────────────────────────────
-      # 特效动画
-      # ──────────────────────────────────────────
-      - label: "✨ 特效动画"
-        name: "effects"
-        file: "_config.anzhiyu.yml"
-        fields:
-          - label: "动态彩带"
-            name: "canvas_fluttering_ribbon"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: true
-
-          - label: "静止彩带"
-            name: "canvas_ribbon"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "大小"
-                name: "size"
-                widget: "number"
-                default: 150
-              - label: "透明度"
-                name: "alpha"
-                widget: "number"
-                default: 0.6
-                value_type: "float"
-                step: 0.1
-              - label: "层级"
-                name: "zIndex"
-                widget: "number"
-                default: -1
-              - label: "点击变换"
-                name: "click_to_change"
-                widget: "boolean"
-                default: false
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "蜘蛛网背景"
-            name: "canvas_nest"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "颜色(RGB)"
-                name: "color"
-                widget: "string"
-                default: "0,0,255"
-              - label: "透明度"
-                name: "opacity"
-                widget: "number"
-                default: 0.7
-                value_type: "float"
-                step: 0.1
-              - label: "层级"
-                name: "zIndex"
-                widget: "number"
-                default: -1
-              - label: "线条数量"
-                name: "count"
-                widget: "number"
-                default: 99
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "打字特效"
-            name: "activate_power_mode"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "彩色粒子"
-                name: "colorful"
-                widget: "boolean"
-                default: true
-              - label: "抖动效果"
-                name: "shake"
-                widget: "boolean"
-                default: false
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "烟花特效"
-            name: "fireworks"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "层级"
-                name: "zIndex"
-                widget: "number"
-                default: 9999
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "点击爱心"
-            name: "click_heart"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "鼠标移动爱心"
-            name: "mouse_move_effect"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: false
-
-          - label: "点击文字"
-            name: "ClickShowText"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "文字列表"
-                name: "text"
-                widget: "list"
-                default: ["I", "LOVE", "YOU"]
-              - label: "字体大小"
-                name: "fontSize"
-                widget: "string"
-                default: "15px"
-              - label: "随机显示"
-                name: "random"
-                widget: "boolean"
-                default: true
-              - label: "移动端显示"
-                name: "mobile"
-                widget: "boolean"
-                default: true
-
-          - label: "深色粒子效果"
-            name: "universe"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-
-          - label: "气泡效果"
-            name: "bubble"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-
-          - label: "动效配置"
-            name: "dynamicEffect"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "文章顶部波浪"
-                name: "postTopWave"
-                widget: "boolean"
-                default: true
-              - label: "文章顶部滚动缩放"
-                name: "postTopRollZoomInfo"
-                widget: "boolean"
-                default: false
-              - label: "评论滚动缩放"
-                name: "pageCommentsRollZoom"
-                widget: "boolean"
-                default: false
-
-      # ──────────────────────────────────────────
-      # 高级设置
-      # ──────────────────────────────────────────
-      - label: "🔧 高级设置"
-        name: "advanced"
-        file: "_config.anzhiyu.yml"
-        fields:
-          - label: "Pjax无刷新加载"
-            name: "pjax"
-            widget: "object"
-            collapsed: false
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "排除页面"
-                name: "exclude"
-                widget: "list"
-                required: false
-
-          - label: "图片懒加载"
-            name: "lazyload"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "范围"
-                name: "field"
-                widget: "select"
-                options:
-                  - { label: "全站", value: "site" }
-                  - { label: "仅文章", value: "post" }
-                default: "site"
-              - label: "占位图"
-                name: "placeholder"
-                widget: "string"
-                required: false
-              - label: "模糊效果"
-                name: "blur"
-                widget: "boolean"
-                default: true
-              - label: "渐进加载"
-                name: "progressive"
-                widget: "boolean"
-                default: true
-
-          - label: "预加载"
-            name: "instantpage"
-            widget: "boolean"
-            default: true
-
-          - label: "加载动画"
-            name: "preloader"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "类型"
-                name: "source"
-                widget: "select"
-                options:
-                  - { label: "全屏加载", value: 1 }
-                  - { label: "进度条", value: 2 }
-                  - { label: "全部", value: 3 }
-                default: 3
-              - label: "头像"
-                name: "avatar"
-                widget: "image"
-                required: false
-
-          - label: "弹窗提示"
-            name: "snackbar"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "位置"
-                name: "position"
-                widget: "select"
-                options:
-                  - { label: "顶部居中", value: "top-center" }
-                  - { label: "顶部左侧", value: "top-left" }
-                  - { label: "顶部右侧", value: "top-right" }
-                  - { label: "底部居中", value: "bottom-center" }
-                  - { label: "底部左侧", value: "bottom-left" }
-                  - { label: "底部右侧", value: "bottom-right" }
-                default: "top-center"
-              - label: "浅色背景"
-                name: "bg_light"
-                widget: "color"
-                default: "#425AEF"
-              - label: "深色背景"
-                name: "bg_dark"
-                widget: "color"
-                default: "#1f1f1f"
-
-          - label: "图片查看器"
-            name: "fancybox"
-            widget: "boolean"
-            default: true
-
-          - label: "Medium Zoom"
-            name: "medium_zoom"
-            widget: "boolean"
-            default: false
-
-          - label: "简繁转换"
-            name: "translate"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "默认按钮文字"
-                name: "default"
-                widget: "string"
-                default: "繁"
-              - label: "默认语言"
-                name: "defaultEncoding"
-                widget: "select"
-                options:
-                  - { label: "繁体中文", value: 1 }
-                  - { label: "简体中文", value: 2 }
-                default: 2
-
-          - label: "阅读模式"
-            name: "readmode"
-            widget: "boolean"
-            default: true
-
-          - label: "中控台"
-            name: "centerConsole"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-
-          - label: "音乐播放器"
-            name: "nav_music"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "宽屏显示"
-                name: "console_widescreen_music"
-                widget: "boolean"
-                default: false
-              - label: "歌单ID"
-                name: "id"
-                widget: "string"
-              - label: "音乐平台"
-                name: "server"
-                widget: "select"
-                options:
-                  - { label: "网易云", value: "netease" }
-                  - { label: "QQ音乐", value: "tencent" }
-                  - { label: "酷狗", value: "kugou" }
-                  - { label: "虾米", value: "xiami" }
-                  - { label: "百度", value: "baidu" }
-                default: "netease"
-              - label: "默认音量"
-                name: "volume"
-                widget: "number"
-                default: 0.7
-                value_type: "float"
-                step: 0.1
-              - label: "全部歌单链接"
-                name: "all_playlist"
-                widget: "string"
-                required: false
-
-          - label: "欢迎语"
-            name: "greetingBox"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "默认问候"
-                name: "default"
-                widget: "string"
-                default: "晚上好👋"
-              - label: "问候列表"
-                name: "list"
-                widget: "list"
-                fields:
-                  - label: "问候语"
-                    name: "greeting"
-                    widget: "string"
-                  - label: "开始时间(小时)"
-                    name: "startTime"
-                    widget: "number"
-                  - label: "结束时间(小时)"
-                    name: "endTime"
-                    widget: "number"
-
-          - label: "标签卖萌"
-            name: "diytitle"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "离开标题"
-                name: "leaveTitle"
-                widget: "string"
-                default: "别走 w(ﾟДﾟ)w"
-              - label: "返回标题"
-                name: "backTitle"
-                widget: "string"
-                default: "都什么去来 ♪(^∇^*)"
-
-          - label: "404页面"
-            name: "error_404"
-            widget: "object"
-            collapsed: true
-            fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "副标题"
-                name: "subtitle"
-                widget: "string"
-                default: "请尝试站内搜索寻找文章"
-              - label: "背景图"
-                name: "background"
-                widget: "image"
-
-          - label: "运行时间显示"
+          # 运行时间显示
+          - label: "运行时间显示 (runtimeshow)"
             name: "runtimeshow"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "发布日期"
-                name: "publish_date"
-                widget: "string"
-                default: "8/1/2024 00:00:00"
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "发布日期", name: "publish_date", widget: "string", default: "8/1/2024 00:00:00" }
 
-          - label: "最新评论"
-            name: "newest_comments"
+      # ============================================
+      # 评论系统
+      # ============================================
+      - label: "💬 评论系统"
+        name: "comments_config"
+        file: "_config.anzhiyu.yml"
+        fields:
+          - label: "评论设置 (comments)"
+            name: "comments"
+            widget: "object"
+            collapsed: false
+            fields:
+              - { label: "使用评论系统", name: "use", widget: "string", required: false, hint: "可选: Valine/Waline/Twikoo/Artalk" }
+              - { label: "显示评论名称", name: "text", widget: "boolean", default: true }
+              - { label: "懒加载", name: "lazyload", widget: "boolean", default: false }
+              - { label: "显示评论数", name: "count", widget: "boolean", default: false }
+
+          - label: "Twikoo"
+            name: "twikoo"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "显示数量"
-                name: "limit"
-                widget: "number"
-                default: 6
-              - label: "缓存时间(分钟)"
-                name: "storage"
-                widget: "number"
-                default: 10
-              - label: "显示头像"
-                name: "avatar"
-                widget: "boolean"
-                default: true
+              - { label: "环境ID", name: "envId", widget: "string", required: false }
+              - { label: "区域", name: "region", widget: "string", required: false }
+              - { label: "访客统计", name: "visitor", widget: "boolean", default: false }
 
-          - label: "访问统计"
-            name: "busuanzi"
+          - label: "Waline"
+            name: "waline"
             widget: "object"
             collapsed: true
             fields:
-              - label: "站点UV"
-                name: "site_uv"
-                widget: "boolean"
-                default: false
-              - label: "站点PV"
-                name: "site_pv"
-                widget: "boolean"
-                default: false
-              - label: "页面PV"
-                name: "page_pv"
-                widget: "boolean"
-                default: false
+              - { label: "服务器地址", name: "serverURL", widget: "string", required: false }
+              - { label: "背景图", name: "bg", widget: "string", required: false }
+              - { label: "浏览量", name: "pageview", widget: "boolean", default: false }
 
-          - label: "分享功能"
-            name: "sharejs"
+          - label: "Valine"
+            name: "valine"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
-              - label: "分享平台"
-                name: "sites"
-                widget: "string"
-                default: "facebook,twitter,wechat,weibo,qq"
+              - { label: "App ID", name: "appId", widget: "string", required: false }
+              - { label: "App Key", name: "appKey", widget: "string", required: false }
+              - { label: "每页数量", name: "pageSize", widget: "number", default: 10 }
+              - { label: "头像", name: "avatar", widget: "string", default: "mp" }
+              - { label: "占位符", name: "placeholder", widget: "string", required: false }
 
-          - label: "控制台打印"
+      # ============================================
+      # 特效动画
+      # ============================================
+      - label: "✨ 特效动画"
+        name: "effects"
+        file: "_config.anzhiyu.yml"
+        fields:
+          # 彩带背景
+          - label: "静止彩带 (canvas_ribbon)"
+            name: "canvas_ribbon"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "大小", name: "size", widget: "number", default: 150 }
+              - { label: "透明度", name: "alpha", widget: "number", default: 0.6, value_type: "float" }
+              - { label: "点击变化", name: "click_to_change", widget: "boolean", default: false }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 动态彩带
+          - label: "动态彩带 (canvas_fluttering_ribbon)"
+            name: "canvas_fluttering_ribbon"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: true }
+
+          # 蜘蛛网
+          - label: "蜘蛛网 (canvas_nest)"
+            name: "canvas_nest"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "颜色", name: "color", widget: "string", default: "0,0,255" }
+              - { label: "透明度", name: "opacity", widget: "number", default: 0.7, value_type: "float" }
+              - { label: "线条数量", name: "count", widget: "number", default: 99 }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 烟火特效
+          - label: "烟火特效 (fireworks)"
+            name: "fireworks"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "层级", name: "zIndex", widget: "number", default: 9999 }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 爱心点击
+          - label: "爱心点击 (click_heart)"
+            name: "click_heart"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 鼠标移动爱心
+          - label: "鼠标移动爱心 (mouse_move_effect)"
+            name: "mouse_move_effect"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 点击文字
+          - label: "点击文字 (ClickShowText)"
+            name: "ClickShowText"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "文字", name: "text", widget: "list" }
+              - { label: "字体大小", name: "fontSize", widget: "string", default: "15px" }
+              - { label: "随机", name: "random", widget: "boolean", default: true }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: true }
+
+          # 打字特效
+          - label: "打字特效 (activate_power_mode)"
+            name: "activate_power_mode"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "彩色粒子", name: "colorful", widget: "boolean", default: true }
+              - { label: "抖动", name: "shake", widget: "boolean", default: false }
+              - { label: "移动端", name: "mobile", widget: "boolean", default: false }
+
+          # 深色粒子
+          - label: "深色粒子 (universe)"
+            name: "universe"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+
+          # 气泡效果
+          - label: "气泡效果 (bubble)"
+            name: "bubble"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+
+          # 动效设置
+          - label: "动效设置 (dynamicEffect)"
+            name: "dynamicEffect"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "文章顶部波浪", name: "postTopWave", widget: "boolean", default: true }
+              - { label: "顶部滚动缩放", name: "postTopRollZoomInfo", widget: "boolean", default: false }
+
+      # ============================================
+      # 高级设置
+      # ============================================
+      - label: "🔧 高级设置"
+        name: "advanced"
+        file: "_config.anzhiyu.yml"
+        fields:
+          # Pjax
+          - label: "Pjax"
+            name: "pjax"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+
+          # 懒加载
+          - label: "懒加载 (lazyload)"
+            name: "lazyload"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - label: "范围"
+                name: "field"
+                widget: "select"
+                options: ["site", "post"]
+                default: "site"
+              - { label: "模糊效果", name: "blur", widget: "boolean", default: true }
+
+          # 预加载
+          - { label: "预加载 (instantpage)", name: "instantpage", widget: "boolean", default: true }
+
+          # 加载动画
+          - label: "加载动画 (preloader)"
+            name: "preloader"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - label: "来源"
+                name: "source"
+                widget: "select"
+                options:
+                  - { label: "全屏加载", value: "1" }
+                  - { label: "进度条", value: "2" }
+                  - { label: "全部", value: "3" }
+                default: "3"
+              - { label: "头像", name: "avatar", widget: "image", required: false }
+
+          # 音乐播放器
+          - label: "音乐播放器 (nav_music)"
+            name: "nav_music"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "歌单ID", name: "id", widget: "string" }
+              - label: "平台"
+                name: "server"
+                widget: "select"
+                options: ["netease", "tencent", "kugou", "xiami", "baidu"]
+                default: "netease"
+              - { label: "默认音量", name: "volume", widget: "number", default: 0.7, value_type: "float" }
+              - { label: "歌单链接", name: "all_playlist", widget: "string", required: false }
+
+          # 弹窗提示
+          - label: "弹窗提示 (snackbar)"
+            name: "snackbar"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - label: "位置"
+                name: "position"
+                widget: "select"
+                options: ["top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"]
+                default: "top-center"
+              - { label: "浅色背景", name: "bg_light", widget: "string", default: "#425AEF" }
+              - { label: "深色背景", name: "bg_dark", widget: "string", default: "#1f1f1f" }
+
+          # 欢迎语
+          - label: "欢迎语 (greetingBox)"
+            name: "greetingBox"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "默认问候", name: "default", widget: "string", default: "晚上好👋" }
+              - label: "问候列表"
+                name: "list"
+                widget: "list"
+                fields:
+                  - { label: "问候语", name: "greeting", widget: "string" }
+                  - { label: "开始时间", name: "startTime", widget: "number" }
+                  - { label: "结束时间", name: "endTime", widget: "number" }
+
+          # 标签卖萌
+          - label: "标签卖萌 (diytitle)"
+            name: "diytitle"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "离开标题", name: "leaveTitle", widget: "string", default: "别走 w(ﾟДﾟ)w" }
+              - { label: "返回标题", name: "backTitle", widget: "string", default: "都什么去来 ♪(^∇^*)" }
+
+          # 简繁转换
+          - label: "简繁转换 (translate)"
+            name: "translate"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "默认文字", name: "default", widget: "string", default: "繁" }
+              - { label: "默认编码", name: "defaultEncoding", widget: "number", default: 2 }
+
+          # 阅读模式
+          - { label: "阅读模式 (readmode)", name: "readmode", widget: "boolean", default: true }
+
+          # 中控台
+          - label: "中控台 (centerConsole)"
+            name: "centerConsole"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+
+          # 404页面
+          - label: "404页面 (error_404)"
+            name: "error_404"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
+              - { label: "副标题", name: "subtitle", widget: "string", default: "请尝试站内搜索寻找文章" }
+              - { label: "背景图", name: "background", widget: "string", required: false }
+
+          # 图片查看器
+          - { label: "Fancybox图片查看 (fancybox)", name: "fancybox", widget: "boolean", default: true }
+
+          # 控制台信息
+          - label: "控制台信息 (console)"
             name: "console"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: true
+              - { label: "启用", name: "enable", widget: "boolean", default: true }
 
-          - label: "Open Graph"
-            name: "Open_Graph_meta"
-            widget: "boolean"
-            default: true
-
-          - label: "CSS前缀"
-            name: "css_prefix"
-            widget: "boolean"
-            default: true
-
-      # ──────────────────────────────────────────
+      # ============================================
       # 统计分析
-      # ──────────────────────────────────────────
+      # ============================================
       - label: "📊 统计分析"
         name: "analytics"
         file: "_config.anzhiyu.yml"
         fields:
-          - label: "百度统计"
-            name: "baidu_analytics"
-            widget: "string"
-            required: false
-            hint: "填写百度统计的Key"
+          - { label: "百度统计 (baidu_analytics)", name: "baidu_analytics", widget: "string", required: false }
+          - { label: "谷歌统计 (google_analytics)", name: "google_analytics", widget: "string", required: false }
+          - { label: "CNZZ统计 (cnzz_analytics)", name: "cnzz_analytics", widget: "string", required: false }
+          - { label: "Cloudflare统计", name: "cloudflare_analytics", widget: "string", required: false }
+          - { label: "Microsoft Clarity", name: "microsoft_clarity", widget: "string", required: false }
 
-          - label: "谷歌分析"
-            name: "google_analytics"
-            widget: "string"
-            required: false
-            hint: "填写GA的tracking ID"
-
-          - label: "CNZZ统计"
-            name: "cnzz_analytics"
-            widget: "string"
-            required: false
-
-          - label: "Cloudflare分析"
-            name: "cloudflare_analytics"
-            widget: "string"
-            required: false
-
-          - label: "Microsoft Clarity"
-            name: "microsoft_clarity"
-            widget: "string"
-            required: false
-
-          - label: "51la统计"
+          - label: "51la统计 (LA)"
             name: "LA"
             widget: "object"
             collapsed: true
             fields:
-              - label: "启用"
-                name: "enable"
-                widget: "boolean"
-                default: false
-              - label: "CK"
-                name: "ck"
-                widget: "string"
-                required: false
-              - label: "灵雀监控ID"
-                name: "LingQueMonitorID"
-                widget: "string"
-                required: false
+              - { label: "启用", name: "enable", widget: "boolean", default: false }
+              - { label: "CK", name: "ck", widget: "string", required: false }
 
-          - label: "站长验证"
-            name: "site_verification"
-            widget: "list"
+          - label: "不蒜子统计 (busuanzi)"
+            name: "busuanzi"
+            widget: "object"
             collapsed: true
             fields:
-              - label: "验证名称"
-                name: "name"
-                widget: "string"
-              - label: "验证内容"
-                name: "content"
-                widget: "string"
+              - { label: "站点UV", name: "site_uv", widget: "boolean", default: false }
+              - { label: "站点PV", name: "site_pv", widget: "boolean", default: false }
+              - { label: "页面PV", name: "page_pv", widget: "boolean", default: false }
+
+          - label: "站点验证 (site_verification)"
+            name: "site_verification"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "名称", name: "name", widget: "string" }
+              - { label: "内容", name: "content", widget: "string" }
