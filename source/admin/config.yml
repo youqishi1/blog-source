@@ -111,15 +111,34 @@ collections:
 
       - label: "分类"
         name: "categories"
-        widget: "list"
-        allow_add: true
-        hint: "支持多级分类，用回车分隔"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "技术教程", value: "技术教程" }
+          - { label: "生活随笔", value: "生活随笔" }
+          - { label: "学习笔记", value: "学习笔记" }
+          - { label: "资源分享", value: "资源分享" }
+          - { label: "项目实战", value: "项目实战" }
+        hint: "选择文章分类（可多选）"
 
       - label: "标签"
         name: "tags"
-        widget: "list"
-        allow_add: true
-        hint: "添加文章标签，用回车分隔"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "JavaScript", value: "JavaScript" }
+          - { label: "React", value: "React" }
+          - { label: "Vue", value: "Vue" }
+          - { label: "Node.js", value: "Node.js" }
+          - { label: "CSS", value: "CSS" }
+          - { label: "HTML", value: "HTML" }
+          - { label: "Python", value: "Python" }
+          - { label: "Docker", value: "Docker" }
+          - { label: "前端", value: "前端" }
+          - { label: "后端", value: "后端" }
+          - { label: "数据库", value: "数据库" }
+          - { label: "工具", value: "工具" }
+        hint: "选择文章标签（可多选）"
 
       - label: "文章密码"
         name: "password"
@@ -177,7 +196,6 @@ collections:
       - label: "心情图标"
         name: "mood"
         widget: "select"
-        required: false
         options:
           - { label: "😊 开心", value: "happy" }
           - { label: "😢 难过", value: "sad" }
@@ -185,6 +203,8 @@ collections:
           - { label: "🤔 思考", value: "thinking" }
           - { label: "😴 困了", value: "sleepy" }
           - { label: "🎉 庆祝", value: "celebrate" }
+          - { label: "😎 得意", value: "cool" }
+          - { label: "🥰 喜欢", value: "love" }
 
       - label: "说说内容"
         name: "body"
